@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 
 const initialData = [
     {

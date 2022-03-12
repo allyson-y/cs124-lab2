@@ -1,5 +1,5 @@
 import './App.css';
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 
 import AddButton from "./addButton";
 import DeleteButton from "./deleteButton";
@@ -9,7 +9,7 @@ import Alert from "./Alert";
 
 function App(props) {
 
-    const [todo, setTodo] = useState(props.initialData);
+    const [todo] = useState(props.initialData);
 
     const [completedList, setCompletedList] = useState(todo.filter(item => item.isChecked));
     const [unCompletedList, setUnCompletedList] = useState(todo.filter(item => !item.isChecked));

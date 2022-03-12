@@ -1,4 +1,3 @@
-import React, {useEffect, useState} from "react";
 import './task.css';
 import Checkbox from './checkbox';
 import TextInput from './textInput';
