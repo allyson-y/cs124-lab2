@@ -3,11 +3,10 @@ import Task from './task'
 
 function TaskList(props) {
 
-    useEffect(() => {
-        console.log(props.completedList, "cl")
-        console.log(props.unCompletedList, "un")
-    }, [props.completedList, props.unCompletedList])
-
+    // useEffect(() => {
+    //     console.log(props.completedList, "cl")
+    //     console.log(props.unCompletedList, "un")
+    // }, [props.completedList, props.unCompletedList])
 
     return <>
         {

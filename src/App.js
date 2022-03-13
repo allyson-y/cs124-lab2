@@ -7,23 +7,54 @@ import TaskList from './taskList';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
 
-function App(props) {
+import { initializeApp } from "firebase/app";
+import {
+    getFirestore,
+    query,
+    collection,
+    orderBy,
+    serverTimestamp,
+    setDoc,
+    doc,
+} from "firebase/firestore";
+import { useCollectionData } from "react-firebase-hooks/firestore";
 
-    const [todo] = useState(props.initialData);
+const firebaseConfig = {
+    apiKey: "AIzaSyADMNIwhIOmtpigMr1rCu_WwaHfC1fyL5g",
+    authDomain: "cs124-lab3-25b03.firebaseapp.com",
+    projectId: "cs124-lab3-25b03",
+    storageBucket: "cs124-lab3-25b03.appspot.com",
+    messagingSenderId: "901440550702",
+    appId: "1:901440550702:web:8defee48f9585720592cbf"
+};
 
-    const [completedList, setCompletedList] = useState(todo.filter(item => item.isChecked));
-    const [unCompletedList, setUnCompletedList] = useState(todo.filter(item => !item.isChecked));
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+const collectionName = "todos";
+
+function App() {
+    const q = query(collection(db, collectionName), orderBy("created"));
+    const [todos, loading, error] = useCollectionData(q);
+
+    const [completedList, setCompletedList] = useState(todos ? todos.filter(item => item.isChecked) : []);
+    const [unCompletedList, setUnCompletedList] = useState(todos ? todos.filter(item => !item.isChecked) : []);
 
     const [showAlert, setShowAlert] = useState(false);
 
+    if (loading) {
+        return <h1>Loading!</h1>;
+    }
+
     function handleItemChanged(itemId, field, newValue) {
-        const newData1 = completedList.map(
-            p => p.id === itemId ? {...p, [field]: newValue} : p)
-        setCompletedList(newData1)
-        // console.log(newData1)
-        const newData2 = unCompletedList.map(
-            p => p.id === itemId ? {...p, [field]: newValue} : p)
-        setUnCompletedList(newData2)
+        setDoc(doc(db, collectionName, itemId),
+            {[field]: newValue}, {merge: true});
+        // const newData1 = completedList.map(
+        //     p => p.id === itemId ? {...p, [field]: newValue} : p)
+        // setCompletedList(newData1)
+        // // console.log(newData1)
+        // const newData2 = unCompletedList.map(
+        //     p => p.id === itemId ? {...p, [field]: newValue} : p)
+        // setUnCompletedList(newData2)
     }
 
     function moveTasks(checked, item) {
@@ -50,17 +81,26 @@ function App(props) {
     }
 
     function handleCompletedDeleted() {
-        setCompletedList([]);
+        // setCompletedList([]);
     }
 
     function handleItemAdded() {
-        setUnCompletedList([...unCompletedList,
-            {
-                id: generateUniqueID(),
-                isChecked: false,
-                textInput: "",
-                isBlur: false
-            }])
+        let id = generateUniqueID();
+        setDoc(doc(db, collectionName, id), {
+            id: id,
+            isChecked: false,
+            textInput: "",
+            isBlur: false,
+            created: serverTimestamp(),
+        });
+        // setUnCompletedList(todos.filter(item => !item.isChecked));
+        // setUnCompletedList([...unCompletedList,
+        //     {
+        //         id: generateUniqueID(),
+        //         isChecked: false,
+        //         textInput: "",
+        //         isBlur: false
+        //     }])
     }
 
     function alertDelete() {
@@ -77,21 +117,22 @@ function App(props) {
     return <>
         <h1>To Do List</h1>
         <TaskList
-            todo={todo}
-            completedList={completedList}
-            unCompletedList={unCompletedList}
+            todo={todos}
+            isCompletedList={false}
+            completedList={todos.filter(item => !item.isChecked)}
+            unCompletedList={todos.filter(item => !item.isChecked)}
             setCompletedList={setCompletedList}
             setUncompletedList={setUnCompletedList}
             onItemChanged={handleItemChanged}
-            isCompletedList={false}
+
             moveTasks={moveTasks}
         />
         {completedList.length > 0 && <h4>Completed</h4>}
         <TaskList
-            todo={todo}
+            todo={todos}
             isCompletedList={true}
-            completedList={completedList}
-            unCompletedList={unCompletedList}
+            completedList={todos.filter(item => item.isChecked)}
+            unCompletedList={todos.filter(item => !item.isChecked)}
             setCompletedList={setCompletedList}
             setUncompletedList={setUnCompletedList}
             onItemChanged={handleItemChanged}
