@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import Task from './task'
 
 function TaskList(props) {

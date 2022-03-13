@@ -45,6 +45,10 @@ function App() {
         return <h1>Loading!</h1>;
     }
 
+    if (error) {
+        return <h1>Error {error} </h1>
+    }
+
     function handleItemChanged(itemId, field, newValue) {
         setDoc(doc(db, collectionName, itemId),
             {[field]: newValue}, {merge: true});
