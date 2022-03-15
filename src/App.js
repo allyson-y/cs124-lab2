@@ -20,12 +20,12 @@ import {
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
 const firebaseConfig = {
-    apiKey: "AIzaSyADMNIwhIOmtpigMr1rCu_WwaHfC1fyL5g",
-    authDomain: "cs124-lab3-25b03.firebaseapp.com",
-    projectId: "cs124-lab3-25b03",
-    storageBucket: "cs124-lab3-25b03.appspot.com",
-    messagingSenderId: "901440550702",
-    appId: "1:901440550702:web:8defee48f9585720592cbf"
+    apiKey: "AIzaSyAwgiUzrKROpWbF5MsvzmVZR117tTiYD9s",
+    authDomain: "cs124-lab3-23fc7.firebaseapp.com",
+    projectId: "cs124-lab3-23fc7",
+    storageBucket: "cs124-lab3-23fc7.appspot.com",
+    messagingSenderId: "850754803504",
+    appId: "1:850754803504:web:7fc3629eb6e96acfd61af5"
 };
 
 const firebaseApp = initializeApp(firebaseConfig);
