@@ -67,7 +67,6 @@ function App() {
     }
 
     function alertDelete() {
-        console.log("pressed delete")
         handleCompletedDeleted()
     }
 
