@@ -4,19 +4,13 @@ import React from "react";
 
 function TextInput(props) {
 
-    let colorID = "task1";
-
-    if (props.isBlur) {
-        colorID = "task2"
-    } else {
-        colorID = "task1"
-    }
-    // console.log(props.textData)
-    // console.log(props.taskId)
+    let colorID = props.isBlur ? "task2" : "task1";
 
     return <>
         <input
-            type="text" name="task2" id={colorID}
+            type="text"
+            name="task2"
+            id={colorID}
             value={props.textData}
             onChange={
                 (e) =>

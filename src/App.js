@@ -16,6 +16,7 @@ import {
     serverTimestamp,
     setDoc,
     doc,
+    deleteDoc,
 } from "firebase/firestore";
 import { useCollectionData } from "react-firebase-hooks/firestore";
 
@@ -35,57 +36,24 @@ const collectionName = "todos";
 function App() {
     const q = query(collection(db, collectionName), orderBy("created"));
     const [todos, loading, error] = useCollectionData(q);
-
-    const [completedList, setCompletedList] = useState(todos ? todos.filter(item => item.isChecked) : []);
-    const [unCompletedList, setUnCompletedList] = useState(todos ? todos.filter(item => !item.isChecked) : []);
-
     const [showAlert, setShowAlert] = useState(false);
 
     if (loading) {
-        return <h1>Loading!</h1>;
+        return "Loading!";
     }
 
     if (error) {
-        return <h1>Error {error} </h1>
+        return error.toString();
     }
 
     function handleItemChanged(itemId, field, newValue) {
         setDoc(doc(db, collectionName, itemId),
             {[field]: newValue}, {merge: true});
-        // const newData1 = completedList.map(
-        //     p => p.id === itemId ? {...p, [field]: newValue} : p)
-        // setCompletedList(newData1)
-        // // console.log(newData1)
-        // const newData2 = unCompletedList.map(
-        //     p => p.id === itemId ? {...p, [field]: newValue} : p)
-        // setUnCompletedList(newData2)
-    }
-
-    function moveTasks(checked, item) {
-        if (completedList.includes(item)) {
-            setUnCompletedList([...unCompletedList,
-                    {
-                        id: item.id,
-                        isChecked: false,
-                        textInput: item.textInput,
-                        isBlur:false
-                    }]);
-            setCompletedList(completedList.filter(element => element.id !== item.id))
-
-        } else {
-            setCompletedList([...completedList,
-                {
-                    id: item.id,
-                    isChecked: true,
-                    textInput: item.textInput,
-                    isBlur: true
-                }]);
-            setUnCompletedList(unCompletedList.filter(element => element.id !== item.id));
-        }
     }
 
     function handleCompletedDeleted() {
-        // setCompletedList([]);
+        let completedList = todos.filter(item => item.isChecked);
+        completedList.forEach(item => deleteDoc(doc(db, collectionName, item.id)));
     }
 
     function handleItemAdded() {
@@ -94,17 +62,8 @@ function App() {
             id: id,
             isChecked: false,
             textInput: "",
-            isBlur: false,
             created: serverTimestamp(),
         });
-        // setUnCompletedList(todos.filter(item => !item.isChecked));
-        // setUnCompletedList([...unCompletedList,
-        //     {
-        //         id: generateUniqueID(),
-        //         isChecked: false,
-        //         textInput: "",
-        //         isBlur: false
-        //     }])
     }
 
     function alertDelete() {
@@ -116,37 +75,24 @@ function App() {
         setShowAlert(!showAlert);
     }
 
-    // console.log(todo)
-
     return <>
         <h1>To Do List</h1>
         <TaskList
-            todo={todos}
+            todo={todos.filter(item => !item.isChecked)}
             isCompletedList={false}
-            completedList={todos.filter(item => !item.isChecked)}
-            unCompletedList={todos.filter(item => !item.isChecked)}
-            setCompletedList={setCompletedList}
-            setUncompletedList={setUnCompletedList}
             onItemChanged={handleItemChanged}
-
-            moveTasks={moveTasks}
         />
-        {completedList.length > 0 && <h4>Completed</h4>}
+        {todos.filter(item => item.isChecked).length > 0 && <h4>Completed</h4>}
         <TaskList
-            todo={todos}
+            todo={todos.filter(item => item.isChecked)}
             isCompletedList={true}
-            completedList={todos.filter(item => item.isChecked)}
-            unCompletedList={todos.filter(item => !item.isChecked)}
-            setCompletedList={setCompletedList}
-            setUncompletedList={setUnCompletedList}
             onItemChanged={handleItemChanged}
-            moveTasks={moveTasks}
         />
         <div className="editTasks">
             <AddButton
                 onItemAdded={handleItemAdded}
             />
-            {completedList.length > 0 && <DeleteButton
+            {todos.filter(item => item.isChecked).length > 0 && <DeleteButton
                 onItemDeleted={toggleModal}
             />}
         </div>

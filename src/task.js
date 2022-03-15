@@ -8,8 +8,6 @@ function Task(props) {
     function toggleCheckbox() {
         console.log(props.item.isChecked)
         props.onItemChanged(props.item.id, "isChecked", !props.item.isChecked)
-        props.onItemChanged(props.item.id, "blur", !props.item.isBlur)
-        props.moveTasks(props.item.isChecked, props.item)
     }
 
     return <>
@@ -21,7 +19,7 @@ function Task(props) {
             onItemChanged={props.onItemChanged}
             textData={props.item.textInput}
             taskId={props.item.id}
-            isBlur={props.item.isBlur}
+            isBlur={props.item.isChecked}
         />
         <br/>
     </>
