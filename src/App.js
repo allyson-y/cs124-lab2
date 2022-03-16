@@ -76,6 +76,7 @@ function App() {
 
     return <>
         <h1>To Do List</h1>
+        {todos.length == 0 && <h4>No items</h4>}
         <TaskList
             todo={todos.filter(item => !item.isChecked)}
             isCompletedList={false}
