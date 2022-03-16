@@ -9,6 +9,7 @@ function TaskList(props) {
                     <Task
                         onItemChanged={props.onItemChanged}
                         item={singleTask}
+                        priorityLevels={props.priorityLevels}
                     />
                 </>
             })
