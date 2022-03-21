@@ -38,6 +38,12 @@ function App() {
     const q = query(collection(db, collectionName), orderBy("created"));
     const [todos, loading, error] = useCollectionData(q);
     const [showAlert, setShowAlert] = useState(false);
+    // Is sorting by name selected or not
+    const [sortByName, setSortByName] = useState(false);
+
+    const qSortName = query(collection(db, collectionName), orderBy("name"));
+    const [nameSortedPeople, loadingNameSorted, errorNameSorted] =
+        useCollectionData(qSortName);
 
     if (loading) {
         return "Loading!";
@@ -76,12 +82,19 @@ function App() {
         setShowAlert(!showAlert);
     }
 
+    function handleSortName() {
+        setSortByName(!sortByName);
+    }
+
     return <>
         <h1>To Do List</h1>
         {/*<button type={"button"} onClick={handleSortPriority}>*/}
         {/*    {sortByPriority ? "Sort by Creation" : "Sort by Name"}*/}
         {/*</button>*/}
         {todos.length === 0 && <h4>No items</h4>}
+        {todos.length > 0 && <button type={"button"} onClick={handleSortName}>
+            {sortByName ? "Sort by Creation" : "Sort by Name"}
+        </button>}
         <TaskList
             todo={todos.filter(item => !item.isChecked)}
             isCompletedList={false}
