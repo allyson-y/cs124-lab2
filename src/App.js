@@ -32,13 +32,12 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "todos";
-const priorityLevels = ['low', 'medium', 'high'];
+const priorityLevels = [0, 1, 2]; //the low, medium, high display is in PriorityButtons.js
 
 function App() {
     const qCreated = query(collection(db, collectionName), orderBy("created"));
     const [todos, loading, error] = useCollectionData(qCreated);
     const [showAlert, setShowAlert] = useState(false);
-    // Is sorting by priority selected or not
     const [sortByPriority, setSortByPriority] = useState(false);
 
     const qSortPriority = query(collection(db, collectionName), orderBy("priority"));
@@ -88,8 +87,8 @@ function App() {
     return <>
         <h1>To Do List</h1>
         {todos.length === 0 && <h4>No items</h4>}
-        {todos.length > 0 && <button type={"button"} onClick={handleSortPriority}>
-            {sortByPriority ? "Sort by Creation" : "Sort by Name"}
+        {todos.length > 1 && <button type={"button"} onClick={handleSortPriority}>
+            {sortByPriority ? "Sort by Creation" : "Sort by Priority"}
         </button>}
         <br></br>
         <TaskList
