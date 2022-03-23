@@ -3,7 +3,7 @@ import React from 'react';
 
 function PriorityButtons(props) {
     let displayList = ["low", "medium", "high"];
-    return <>
+    return <span className="priorityButtons">
         {props.priorityLevels.map(type => (
             <button
                 key={type}
@@ -13,7 +13,7 @@ function PriorityButtons(props) {
                 {displayList[type]}
             </button>
         ))}
-    </>
+    </span>
 }
 
 export default PriorityButtons;

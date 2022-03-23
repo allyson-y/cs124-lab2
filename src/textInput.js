@@ -1,5 +1,5 @@
 import './App.css';
-import './textInput.css'
+import './textInput.css';
 import React from "react";
 
 function TextInput(props) {
@@ -8,6 +8,7 @@ function TextInput(props) {
 
     return <>
         <input
+            className="text-input"
             type="text"
             name="task2"
             id={colorID}

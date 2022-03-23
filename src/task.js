@@ -1,4 +1,3 @@
-import './task.css';
 import Checkbox from './checkbox';
 import TextInput from './textInput';
 import PriorityButtons from './PriorityButtons';
@@ -26,6 +25,7 @@ function Task(props) {
             isBlur={props.item.isChecked}
         />
         <PriorityButtons
+            className="priorityButtons"
             priority={props.item.priority}
             taskId={props.item.id}
             priorityLevels={props.priorityLevels}

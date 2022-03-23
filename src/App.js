@@ -87,10 +87,11 @@ function App() {
     return <>
         <h1>To Do List</h1>
         {todos.length === 0 && <h4>No items</h4>}
-        {todos.length > 1 && <button type={"button"} onClick={handleSortPriority}>
-            {sortByPriority ? "Sort by Creation" : "Sort by Priority"}
-        </button>}
-        <br></br>
+        <div className = "sortButton">
+            {todos.length > 1 && <button type={"button"} onClick={handleSortPriority}>
+                {sortByPriority ? "Sort by Creation" : "Sort by Priority"}
+            </button>}
+        </div>
         <TaskList
             todo={sortByPriority ? todosPriority.filter(item => !item.isChecked) : todos.filter(item => !item.isChecked)}
             isCompletedList={false}
