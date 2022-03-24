@@ -7,10 +7,11 @@ function PriorityButtons(props) {
         {props.priorityLevels.map(type => (
             <button
                 key={type}
+                className={type}
                 id={(type === props.priority).toString()}
                 onClick={() => props.selectPriority(type)}
             >
-                {displayList[type]}
+                {displayList[props.priorityLevels.indexOf(type)]}
             </button>
         ))}
 

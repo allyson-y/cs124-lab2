@@ -12,6 +12,21 @@
 
 button {
     height: 25px;
-    /*color: #61dafb;*/
+}
 
+/*low*/
+.a{
+    color: white;
+    background-color: darkgreen;
+}
+
+/*mid*/
+.b{
+    color: white;
+    background-color: darkorange;
+}
+/*high*/
+.c{
+    color: white;
+    background-color: darkred;
 }

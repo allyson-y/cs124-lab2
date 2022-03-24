@@ -32,7 +32,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "todos";
-const priorityLevels = [2, 1, 0]; //the low, medium, high display is in PriorityButtons.js
+const priorityLevels = ["c", "b", "a"]; //the low, medium, high display is in PriorityButtons.js
 
 function App() {
     const qCreated = query(collection(db, collectionName), orderBy("created"));
