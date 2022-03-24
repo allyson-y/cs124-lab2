@@ -17,16 +17,19 @@ button {
 /*low*/
 .a{
     color: white;
-    background-color: darkgreen;
+    background-color: #1F51FF;
+    border-style: none;
 }
 
 /*mid*/
 .b{
     color: white;
-    background-color: darkorange;
+    background-color: darkgreen;
+    border-style: none;
 }
 /*high*/
 .c{
     color: white;
-    background-color: darkred;
+    background-color: #D60000;
+    border-style: none;
 }
