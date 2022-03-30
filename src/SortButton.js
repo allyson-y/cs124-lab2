@@ -1,21 +1,26 @@
 import React from "react";
-
-function showList(){
-
-}
-
+import 'bootstrap/dist/css/bootstrap.css';
+import Dropdown from 'react-bootstrap/Dropdown';
 
 function SortButton(props) {
-
-    return <div className="sortButton">
-        <button onClick="showList()" className="dropbtn">Choose How to Sort</button>
-        <div id="myDropdown" className="dropdown-content">
-            <div className = "sortButton">
-                 {props.todos.length > 1 && <button type={"button"} onClick={props.handleSortPriority} id = {"thisButton"}>
-                     {props.sortByPriority ? "Sort by Date Created" : "Sort by Priority"}
-                 </button>}
-             </div>
-        </div>
+    return <div clssName={"sortButton"}>
+        <Dropdown
+            onSelect={props.handleSelect}>
+            <Dropdown.Toggle variant="success">
+                Sort Menu
+            </Dropdown.Toggle>
+            <Dropdown.Menu>
+                <Dropdown.Item href="name">
+                    Sort by Name
+                </Dropdown.Item>
+                <Dropdown.Item href="priority">
+                    Sort by Priority
+                </Dropdown.Item>
+                <Dropdown.Item href="date">
+                    Sort by Date Created
+                </Dropdown.Item>
+            </Dropdown.Menu>
+        </Dropdown>
     </div>
 }
 

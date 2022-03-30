@@ -44,6 +44,7 @@ function App() {
     const [showAlert, setShowAlert] = useState(false);
     const [sortByPriority, setSortByPriority] = useState(false);
     const [sortByName, setSortByName] = useState(false);
+    const [sortByDate, setSortByDate] = useState(true);
 
     const [todos, loading, error] = useCollectionData(sortByPriority? qSortPriority :
         (sortByName? qSortName : qCreated));
@@ -87,8 +88,20 @@ function App() {
         setShowAlert(!showAlert);
     }
 
-    function handleSortPriority() {
-        setSortByPriority(!sortByPriority);
+    function handleSelect(e) {
+        if (e == "name") {
+            setSortByName(false);
+            setSortByPriority(false);
+            setSortByDate(false);
+        } else if (e == "priority") {
+            setSortByPriority(true);
+            setSortByName(false);
+            setSortByDate(false);
+        } else {
+            setSortByDate(true);
+            setSortByPriority(false);
+            setSortByName(false);
+        }
     }
 
     return <>
@@ -96,9 +109,7 @@ function App() {
         {todos.length === 0 && <h4>No items</h4>}
         <div className = "sortButton">
             {todos.length > 1 && <SortButton
-            todos={todos}
-            sortByPriority={sortByPriority}
-            handleSortPriority={handleSortPriority}
+            handleSelect={handleSelect}
             />}
         </div>
         <TaskList
