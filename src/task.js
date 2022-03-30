@@ -6,7 +6,7 @@ function Task(props) {
     // checked holds all checkboxes that are checked
 
     function toggleCheckbox() {
-        props.onItemChanged(props.item.id, "isChecked", !props.item.isChecked)
+        props.onItemChanged(props.item.id, "isCompleted", !props.item.isCompleted)
     }
 
     function selectPriority(selectedPriority) {
@@ -16,13 +16,13 @@ function Task(props) {
     return <>
         <Checkbox
             toggleCheck={toggleCheckbox}
-            checkedBox={props.item.isChecked}
+            checkedBox={props.item.isCompleted}
         />
         <TextInput
             onItemChanged={props.onItemChanged}
             textData={props.item.textInput}
             taskId={props.item.id}
-            isBlur={props.item.isChecked}
+            isBlur={props.item.isCompleted}
         />
         <PriorityButtons
             className="priorityButtons"

@@ -40,12 +40,12 @@ function App() {
     const qSortPriority = query(collection(db, collectionName), orderBy("priority"));
     const qSortName = query(collection(db, collectionName), orderBy("textInput"));
 
-    const [todos, loading, error] = useCollectionData(sortByPriority? qSortPriority :
-        (sortByName? qSortName : qCreated));
-
     const [showAlert, setShowAlert] = useState(false);
     const [sortByPriority, setSortByPriority] = useState(false);
     const [sortByName, setSortByName] = useState(false);
+
+    const [todos, loading, error] = useCollectionData(sortByPriority? qSortPriority :
+        (sortByName? qSortName : qCreated));
 
     if (loading) {
         return "Loading!";
@@ -61,7 +61,7 @@ function App() {
     }
 
     function handleCompletedDeleted() {
-        let completedList = todos.filter(item => item.isChecked);
+        let completedList = todos.filter(item => item.isCompleted);
         completedList.forEach(item => deleteDoc(doc(db, collectionName, item.id)));
     }
 
@@ -69,7 +69,7 @@ function App() {
         let id = generateUniqueID();
         setDoc(doc(db, collectionName, id), {
             id: id,
-            isChecked: false,
+            isCompleted: false,
             textInput: "",
             created: serverTimestamp(),
             priority: priorityLevels[0]
@@ -99,14 +99,14 @@ function App() {
             />}
         </div>
         <TaskList
-            todo={todos.filter(item => !item.isChecked)}
+            todo={todos.filter(item => !item.isCompleted)}
             isCompletedList={false}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
         />
-        {todos.filter(item => item.isChecked).length > 0 && <h4>Completed</h4>}
+        {todos.filter(item => item.isCompleted).length > 0 && <h4>Completed</h4>}
         <TaskList
-            todo={todos.filter(item => item.isChecked)}
+            todo={todos.filter(item => item.isCompleted)}
             isCompletedList={true}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
@@ -115,7 +115,7 @@ function App() {
             <AddButton
                 onItemAdded={handleItemAdded}
             />
-            {todos.filter(item => item.isChecked).length > 0 && <DeleteButton
+            {todos.filter(item => item.isCompleted).length > 0 && <DeleteButton
                 onItemDeleted={toggleModal}
             />}
         </div>
