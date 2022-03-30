@@ -37,17 +37,11 @@ const collectionName = "todos";
 const priorityLevels = ["c", "b", "a"]; //the low, medium, high display is in PriorityButtons.js
 
 function App() {
-    const qCreated = query(collection(db, collectionName), orderBy("created"));
-    const qSortPriority = query(collection(db, collectionName), orderBy("priority"));
-    const qSortName = query(collection(db, collectionName), orderBy("textInput"));
-
     const [showAlert, setShowAlert] = useState(false);
-    const [sortByPriority, setSortByPriority] = useState(false);
-    const [sortByName, setSortByName] = useState(false);
-    const [sortByDate, setSortByDate] = useState(true);
+    const [sort, setSort] = useState("created");
 
-    const [todos, loading, error] = useCollectionData(sortByPriority? qSortPriority :
-        (sortByName? qSortName : qCreated));
+    const [todos, loading, error] = useCollectionData(query(collection(db, collectionName), orderBy(
+        sort == "created"? "created" : (sort == "priority" ? "priority" : "textInput"))));
 
     if (loading) {
         return "Loading!";
@@ -89,19 +83,7 @@ function App() {
     }
 
     function handleSelect(e) {
-        if (e == "name") {
-            setSortByName(false);
-            setSortByPriority(false);
-            setSortByDate(false);
-        } else if (e == "priority") {
-            setSortByPriority(true);
-            setSortByName(false);
-            setSortByDate(false);
-        } else {
-            setSortByDate(true);
-            setSortByPriority(false);
-            setSortByName(false);
-        }
+        setSort(e);
     }
 
     return <>

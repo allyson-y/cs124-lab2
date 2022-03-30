@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import Dropdown from 'react-bootstrap/Dropdown';
 
 function SortButton(props) {
-    return <div clssName={"sortButton"}>
+    return <div>
         <Dropdown
             onSelect={props.handleSelect}>
             <Dropdown.Toggle variant="success">
