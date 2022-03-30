@@ -18,7 +18,7 @@ import {
     doc,
     deleteDoc,
 } from "firebase/firestore";
-import { useCollectionData } from "react-firebase-hooks/firestore";
+import {useCollectionData} from "react-firebase-hooks/firestore";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAwgiUzrKROpWbF5MsvzmVZR117tTiYD9s",
@@ -36,18 +36,21 @@ const priorityLevels = ["c", "b", "a"]; //the low, medium, high display is in Pr
 
 function App() {
     const qCreated = query(collection(db, collectionName), orderBy("created"));
-    const [todos, loading, error] = useCollectionData(qCreated);
+    const qSortPriority = query(collection(db, collectionName), orderBy("priority"));
+    const qSortName = query(collection(db, collectionName), orderBy("textInput"));
+
+    const [todos, loading, error] = useCollectionData(sortByPriority? qSortPriority :
+        (sortByName? qSortName : qCreated));
+
     const [showAlert, setShowAlert] = useState(false);
     const [sortByPriority, setSortByPriority] = useState(false);
+    const [sortByName, setSortByName] = useState(false);
 
-    const qSortPriority = query(collection(db, collectionName), orderBy("priority"));
-    const [todosPriority, loadingPriority, errorPriority] = useCollectionData(qSortPriority);
-
-    if (loading | loadingPriority) {
+    if (loading) {
         return "Loading!";
     }
 
-    if (error | errorPriority) {
+    if (error) {
         return error.toString();
     }
 
@@ -88,19 +91,17 @@ function App() {
         <h1>To Do List</h1>
         {todos.length === 0 && <h4>No items</h4>}
         <div className = "sortButton">
-            {todos.length > 1 && <button type={"button"} onClick={handleSortPriority} id = {"thisButton"}>
-                {sortByPriority ? "Sort by Date Created" : "Sort by Priority"}
-            </button>}
+            {todos.length > 1 && <SortButton/>}
         </div>
         <TaskList
-            todo={sortByPriority ? todosPriority.filter(item => !item.isChecked) : todos.filter(item => !item.isChecked)}
+            todo={todos.filter(item => !item.isChecked)}
             isCompletedList={false}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
         />
         {todos.filter(item => item.isChecked).length > 0 && <h4>Completed</h4>}
         <TaskList
-            todo={sortByPriority ? todosPriority.filter(item => item.isChecked) : todos.filter(item => item.isChecked)}
+            todo={todos.filter(item => item.isChecked)}
             isCompletedList={true}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
