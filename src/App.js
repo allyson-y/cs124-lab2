@@ -6,6 +6,7 @@ import DeleteButton from "./deleteButton";
 import TaskList from './taskList';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
+import SortButton from "./SortButton"
 
 import { initializeApp } from "firebase/app";
 import {
@@ -91,7 +92,11 @@ function App() {
         <h1>To Do List</h1>
         {todos.length === 0 && <h4>No items</h4>}
         <div className = "sortButton">
-            {todos.length > 1 && <SortButton/>}
+            {todos.length > 1 && <SortButton
+            todos={todos}
+            sortByPriority={sortByPriority}
+            handleSortPriority={handleSortPriority}
+            />}
         </div>
         <TaskList
             todo={todos.filter(item => !item.isChecked)}
