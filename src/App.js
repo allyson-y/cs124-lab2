@@ -16,6 +16,7 @@ import {
     orderBy,
     serverTimestamp,
     setDoc,
+    updateDoc,
     doc,
     deleteDoc,
 } from "firebase/firestore";
@@ -55,13 +56,15 @@ function App() {
         return error.toString();
     }
 
+    let completedList = todos.filter(item => item.isCompleted);
+    let uncompletedList = todos.filter(item => !item.isCompleted)
+
     function handleItemChanged(itemId, field, newValue) {
-        setDoc(doc(db, collectionName, itemId),
-            {[field]: newValue}, {merge: true});
+        updateDoc(doc(db, collectionName, itemId),
+            {[field]: newValue});
     }
 
     function handleCompletedDeleted() {
-        let completedList = todos.filter(item => item.isCompleted);
         completedList.forEach(item => deleteDoc(doc(db, collectionName, item.id)));
     }
 
@@ -99,14 +102,14 @@ function App() {
             />}
         </div>
         <TaskList
-            todo={todos.filter(item => !item.isCompleted)}
+            todo={uncompletedList}
             isCompletedList={false}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
         />
-        {todos.filter(item => item.isCompleted).length > 0 && <h4>Completed</h4>}
+        {completedList.length > 0 && <h4>Completed</h4>}
         <TaskList
-            todo={todos.filter(item => item.isCompleted)}
+            todo={completedList}
             isCompletedList={true}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
@@ -115,7 +118,7 @@ function App() {
             <AddButton
                 onItemAdded={handleItemAdded}
             />
-            {todos.filter(item => item.isCompleted).length > 0 && <DeleteButton
+            {completedList.length > 0 && <DeleteButton
                 onItemDeleted={toggleModal}
             />}
         </div>
