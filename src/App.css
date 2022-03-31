@@ -10,17 +10,28 @@
 .editTasks {
   display:flex;
   flex-direction:row;
-  padding-top: 10px;
+  padding-top: 20px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.sortButton {
+  padding-bottom: 10px;
+  padding-left: 270px;
+  transform: scale(1.1);
+}
+
+#thisButton {
+  color: darkmagenta;
+  font-weight: bold;
 }
 
 h1 {
   font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 40px;
+}
+
+h4 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 20px;
 }
 
 .App-header {

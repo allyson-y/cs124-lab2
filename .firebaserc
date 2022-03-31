@@ -1,0 +1,7 @@
+{
+  "projects": {
+    "default": "cs124-lab3-23fc7",
+    "staging": "cs124-lab3-23fc7"
+  },
+  "targets": {}
+}
