@@ -7,6 +7,7 @@ import TaskList from './taskList';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
 import SortButton from "./SortButton";
+import AddList from "./AddList";
 
 import { initializeApp } from "firebase/app";
 import {
@@ -43,12 +44,13 @@ function App() {
     const [todos, loading, error] = useCollectionData(query(collection(db, collectionName), orderBy(
         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
+    const[lists] = useCollectionData(query(collection(db, "lists")));
+
     if (loading) {
         return <div>
             <h1>To Do List</h1>
             Loading!
         </div>
-
     }
 
     if (error) {
@@ -78,6 +80,14 @@ function App() {
         });
     }
 
+    function handleListAdded(){
+        let id = generateUniqueID();
+        setDoc(doc(db, "lists", id), {
+            id: id,
+            created: serverTimestamp(),
+        });
+    }
+
     function alertDelete() {
         handleCompletedDeleted()
     }
@@ -93,25 +103,25 @@ function App() {
     return <>
         <h1>To Do List</h1>
         {todos.length === 0 && <h4>No items</h4>}
+
+        <AddList
+            onListAdded={handleListAdded}
+        />
+
         <div className = "sortButton">
             {todos.length > 1 && <SortButton
             handleSelect={handleSelect}
             sort={sort}
             />}
         </div>
+
         <TaskList
-            todo={uncompletedList}
-            isCompletedList={false}
+            uncompletedTodo={uncompletedList}
+            completedTodo={completedList}
             onItemChanged={handleItemChanged}
             priorityLevels={priorityLevels}
         />
-        {completedList.length > 0 && <h4>Completed</h4>}
-        <TaskList
-            todo={completedList}
-            isCompletedList={true}
-            onItemChanged={handleItemChanged}
-            priorityLevels={priorityLevels}
-        />
+
         <div className="editTasks">
             <AddButton
                 onItemAdded={handleItemAdded}

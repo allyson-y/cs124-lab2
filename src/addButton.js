@@ -7,7 +7,7 @@ function AddButton(props) {
             type={"button"}
             id = "add"
             onClick={props.onItemAdded}>
-            Add
+            Add an item
         </button>
     </>
 }
