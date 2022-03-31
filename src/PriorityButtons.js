@@ -1,4 +1,4 @@
-import './PriorityButtons.css'
+import "./PriorityButtons.css";
 import React from 'react';
 
 function PriorityButtons(props) {

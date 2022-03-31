@@ -6,7 +6,7 @@ import DeleteButton from "./deleteButton";
 import TaskList from './taskList';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
-import SortButton from "./SortButton"
+import SortButton from "./SortButton";
 
 import { initializeApp } from "firebase/app";
 import {
@@ -34,17 +34,21 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "todos";
-const priorityLevels = ["c", "b", "a"]; //the low, medium, high display is in PriorityButtons.js
+const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
 
 function App() {
     const [showAlert, setShowAlert] = useState(false);
     const [sort, setSort] = useState("created");
 
     const [todos, loading, error] = useCollectionData(query(collection(db, collectionName), orderBy(
-        sort == "created"? "created" : (sort == "priority" ? "priority" : "textInput"))));
+        sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
     if (loading) {
-        return "Loading!";
+        return <div>
+            <h1>To Do List</h1>
+            Loading!
+        </div>
+
     }
 
     if (error) {
@@ -83,7 +87,7 @@ function App() {
     }
 
     function handleSelect(e) {
-        setSort(e);
+        setSort(e.target.value);
     }
 
     return <>
@@ -92,6 +96,7 @@ function App() {
         <div className = "sortButton">
             {todos.length > 1 && <SortButton
             handleSelect={handleSelect}
+            sort={sort}
             />}
         </div>
         <TaskList

@@ -1,26 +1,16 @@
 import React from "react";
-// import 'bootstrap/dist/css/bootstrap.min.css';
-import Dropdown from 'react-bootstrap/Dropdown';
+import "./SortButton.css";
 
 function SortButton(props) {
     return <div>
-        <Dropdown
-            onSelect={props.handleSelect}>
-            <Dropdown.Toggle variant="success">
-                Sort Menu
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-                <Dropdown.Item href="name">
-                    Sort by Name
-                </Dropdown.Item>
-                <Dropdown.Item href="priority">
-                    Sort by Priority
-                </Dropdown.Item>
-                <Dropdown.Item href="date">
-                    Sort by Date Created
-                </Dropdown.Item>
-            </Dropdown.Menu>
-        </Dropdown>
+        <select
+            className="select"
+            value={props.sort}
+            onChange={props.handleSelect}>
+            <option value="textInput">Sort by Name</option>
+            <option value="priority">Sort by Priority</option>
+            <option value="created">Sort by Date Created</option>
+        </select>
     </div>
 }
 
