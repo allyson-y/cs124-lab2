@@ -7,6 +7,7 @@ function DeleteButton(props) {
                id="delete"
                value="Delete Completed"
                onClick={props.onItemDeleted}
+               aria-label="Hit space to delete completed tasks"
         />
     </>
 }

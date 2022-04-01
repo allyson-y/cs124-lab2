@@ -6,7 +6,9 @@ function SortButton(props) {
         <select
             className="select"
             value={props.sort}
-            onChange={props.handleSelect}>
+            onChange={props.handleSelect}
+            aria-label="Hit space to select sorting method"
+        >
             <option value="textInput">Sort by Name</option>
             <option value="priority">Sort by Priority</option>
             <option value="created">Sort by Date Created</option>

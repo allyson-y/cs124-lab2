@@ -6,7 +6,8 @@ function AddButton(props) {
         <button
             type={"button"}
             id = "add"
-            onClick={props.onItemAdded}>
+            onClick={props.onItemAdded}
+            aria-label="Hit space to add an item">
             Add an item
         </button>
     </>

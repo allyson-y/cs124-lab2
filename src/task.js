@@ -23,6 +23,7 @@ function Task(props) {
             textData={props.item.textInput}
             taskId={props.item.id}
             isBlur={props.item.isCompleted}
+            priority={props.item.priority}
         />
         <PriorityButtons
             className="priorityButtons"
