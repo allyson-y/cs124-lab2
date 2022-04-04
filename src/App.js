@@ -8,6 +8,7 @@ import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
 import SortButton from "./SortButton";
 import AddList from "./AddList";
+import ChooseList from "./ChooseList";
 
 import { initializeApp } from "firebase/app";
 import {
@@ -34,44 +35,49 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-const collectionName = "todos";
+const collectionName = "base";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
+const initialID = generateUniqueID();
 
 function App() {
     const [showAlert, setShowAlert] = useState(false);
     const [sort, setSort] = useState("created");
+    const [collNum, setCollNum] = useState(1);
+    const [newList, setNewList] = useState(collectionName + "/" + initialID.toString() + "/tasks");
+    const [currListID, setcurrListID] = useState(initialID);
 
-    const [todos, loading, error] = useCollectionData(query(collection(db, collectionName), orderBy(
-        sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
+    const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
 
-    const[lists] = useCollectionData(query(collection(db, "lists")));
+    const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
-    if (loading) {
+    if (loading | listLoading) {
         return <div>
             <h1>To Do List</h1>
             Loading!
         </div>
     }
 
-    if (error) {
-        return error.toString();
+    if (error | listError) {
+        return listError.toString() + error.toString();
     }
 
     let completedList = todos.filter(item => item.isCompleted);
     let uncompletedList = todos.filter(item => !item.isCompleted)
 
     function handleItemChanged(itemId, field, newValue) {
-        updateDoc(doc(db, collectionName, itemId),
+        updateDoc(doc(db, newList, itemId),
             {[field]: newValue});
     }
 
     function handleCompletedDeleted() {
-        completedList.forEach(item => deleteDoc(doc(db, collectionName, item.id)));
+        completedList.forEach(item => deleteDoc(doc(db, newList, item.id)));
     }
 
     function handleItemAdded() {
         let id = generateUniqueID();
-        setDoc(doc(db, collectionName, id), {
+        console.log(newList);
+        setDoc(doc(db, newList, id), {
             id: id,
             isCompleted: false,
             textInput: "",
@@ -82,10 +88,15 @@ function App() {
 
     function handleListAdded(){
         let id = generateUniqueID();
-        setDoc(doc(db, "lists", id), {
+        setCollNum(collNum + 1);
+        setDoc(doc(db, collectionName, id), {
             id: id,
-            created: serverTimestamp(),
+            name: "todoList" + collNum.toString()
         });
+        console.log(collNum);
+        setNewList(collectionName + "/" + currListID.toString() + "/tasks");
+    //     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+    //         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
     }
 
     function alertDelete() {
@@ -96,24 +107,38 @@ function App() {
         setShowAlert(!showAlert);
     }
 
-    function handleSelect(e) {
+    function handleSelectSort(e) {
         setSort(e.target.value);
+    }
+
+    function handleSelectList(e) {
+        setcurrListID(e.target.value);
+        setCollNum(7);
+        setNewList(collectionName + "/" + e.target.value + "/tasks");
+        console.log(collectionName + "/" + e.target.value + "/tasks");
     }
 
     return <>
         <h1>To Do List</h1>
-        {todos.length === 0 && <h4>No items</h4>}
-
         <AddList
             onListAdded={handleListAdded}
         />
-
+        <br/>
+        <div className = "chooseList">
+            {/*{todoLists.length > 1 && */}
+                <ChooseList
+                handleSelect={handleSelectList}
+                listName={collNum}
+                listOfLists={todoLists}
+            />
+        </div>
         <div className = "sortButton">
             {todos.length > 1 && <SortButton
-            handleSelect={handleSelect}
+            handleSelect={handleSelectSort}
             sort={sort}
             />}
         </div>
+        {todos.length === 0 && <h4>No items</h4>}
 
         <TaskList
             uncompletedTodo={uncompletedList}

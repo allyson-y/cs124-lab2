@@ -1,13 +1,13 @@
-// import './addButton.css'
+import './AddList.css'
 import React from 'react';
 
 function AddListButton(props) {
     return <>
         <button
             type={"button"}
-            id = "add"
+            id = "newList"
             onClick={props.onListAdded}>
-            Create a List
+            Create new list
         </button>
     </>
 }
