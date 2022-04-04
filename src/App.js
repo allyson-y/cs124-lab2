@@ -37,16 +37,18 @@ const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "base";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
-const initialID = generateUniqueID();
+const initialID = "v2-1649047416480-5386782840773";
 
 function App() {
     const [showAlert, setShowAlert] = useState(false);
     const [sort, setSort] = useState("created");
-    const [collNum, setCollNum] = useState(1);
     const [newList, setNewList] = useState(collectionName + "/" + initialID.toString() + "/tasks");
-    const [currListID, setcurrListID] = useState(initialID);
+    const [currListID, setCurrListID] = useState(initialID);
 
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
+    // console.log(parseInt(todoLists[todoLists.length - 1].name.substring(todoLists[todoLists.length - 1].name.length - 1)))
+    // let maxNum = todoLists ? parseInt(todoLists[todoLists.length - 1].name.substring(todoLists[todoLists.length - 1].name.length - 1)) : 1;
+    const [collNum, setCollNum] = useState(2); //how to update it to the max number + 1?
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
          sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
@@ -112,8 +114,7 @@ function App() {
     }
 
     function handleSelectList(e) {
-        setcurrListID(e.target.value);
-        setCollNum(7);
+        setCurrListID(e.target.value);
         setNewList(collectionName + "/" + e.target.value + "/tasks");
         console.log(collectionName + "/" + e.target.value + "/tasks");
     }
@@ -129,6 +130,7 @@ function App() {
                 <ChooseList
                 handleSelect={handleSelectList}
                 listName={collNum}
+                id={currListID}
                 listOfLists={todoLists}
             />
         </div>
