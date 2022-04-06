@@ -3,9 +3,9 @@ import "./SortButton.css";
 
 function SortButton(props) {
     return <div>
-        <text id={"sortText"}>
+        <span id={"sortText"}>
             Sort By:&nbsp;
-        </text>
+        </span>
         <select
             className="select"
             value={props.sort}
