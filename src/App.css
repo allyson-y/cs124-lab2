@@ -25,6 +25,7 @@
   padding-top: 10px;
   padding-left: 30px;
   font-family: "Lucida Console", "Courier New", monospace;
+  display: inline-block;
 }
 
 #thisButton {

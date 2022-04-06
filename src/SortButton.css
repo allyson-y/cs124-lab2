@@ -1,3 +1,8 @@
 .select {
     font-family: "Lucida Console", "Courier New", monospace;
 }
+
+#sortText {
+    font-size: 14px;
+    font-weight: bold;
+}

@@ -7,7 +7,7 @@ function AddListButton(props) {
             type={"button"}
             id = "newList"
             onClick={props.onListAdded}>
-            Create new list
+            +
         </button>
     </>
 }

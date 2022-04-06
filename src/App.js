@@ -10,7 +10,7 @@ import SortButton from "./SortButton";
 import AddList from "./AddList";
 import ChooseList from "./ChooseList";
 
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 import {
     getFirestore,
     query,
@@ -51,7 +51,7 @@ function App() {
     const [collNum, setCollNum] = useState(2); //how to update it to the max number + 1?
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
+        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
     if (loading | listLoading) {
         return <div>
@@ -88,7 +88,7 @@ function App() {
         });
     }
 
-    function handleListAdded(){
+    function handleListAdded() {
         let id = generateUniqueID();
         setCollNum(collNum + 1);
         setDoc(doc(db, collectionName, id), {
@@ -97,8 +97,8 @@ function App() {
         });
         console.log(collNum);
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
-    //     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-    //         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
+        //     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+        //         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
     }
 
     function alertDelete() {
@@ -121,23 +121,22 @@ function App() {
 
     return <>
         <h1>To Do List</h1>
-        <AddList
-            onListAdded={handleListAdded}
-        />
         <br/>
-        <div className = "chooseList">
+        <div className="chooseList">
             {/*{todoLists.length > 1 && */}
-                <ChooseList
+            <ChooseList
                 handleSelect={handleSelectList}
                 listName={collNum}
                 id={currListID}
                 listOfLists={todoLists}
+                handleListAdded={handleListAdded}
             />
         </div>
-        <div className = "sortButton">
+
+        <div className="sortButton">
             {todos.length > 1 && <SortButton
-            handleSelect={handleSelectSort}
-            sort={sort}
+                handleSelect={handleSelectSort}
+                sort={sort}
             />}
         </div>
         {todos.length === 0 && <h4>No items</h4>}
