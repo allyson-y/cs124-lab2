@@ -7,7 +7,6 @@ import TaskList from './taskList';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
 import SortButton from "./SortButton";
-import AddList from "./AddList";
 import ChooseList from "./ChooseList";
 
 import {initializeApp} from "firebase/app";
@@ -48,10 +47,12 @@ function App() {
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
     // console.log(parseInt(todoLists[todoLists.length - 1].name.substring(todoLists[todoLists.length - 1].name.length - 1)))
     // let maxNum = todoLists ? parseInt(todoLists[todoLists.length - 1].name.substring(todoLists[todoLists.length - 1].name.length - 1)) : 1;
-    const [collNum, setCollNum] = useState(2); //how to update it to the max number + 1?
+    // const [collNum, setCollNum] = useState(2); //how to update it to the max number + 1?
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
+
+    const [listName, setListName] = useState(todoLists ? todoLists[0]["name"] : "List 1");
 
     if (loading | listLoading) {
         return <div>
@@ -90,15 +91,21 @@ function App() {
 
     function handleListAdded() {
         let id = generateUniqueID();
-        setCollNum(collNum + 1);
+        // setCollNum(collNum + 1);
         setDoc(doc(db, collectionName, id), {
             id: id,
-            name: "todoList" + collNum.toString()
+            // name: "todoList" + collNum.toString()
+            name: listName
         });
-        console.log(collNum);
+        // console.log(collNum);
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
         //     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         //         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
+    }
+
+    function handleListChanged(itemId, field, newValue) {
+        updateDoc(doc(db, collectionName, itemId),
+            {[field]: newValue});
     }
 
     function alertDelete() {
@@ -126,10 +133,11 @@ function App() {
             {/*{todoLists.length > 1 && */}
             <ChooseList
                 handleSelect={handleSelectList}
-                listName={collNum}
+                // listName={listName}
                 id={currListID}
                 listOfLists={todoLists}
                 handleListAdded={handleListAdded}
+                handleListChanged={handleListChanged}
             />
         </div>
 

@@ -1,6 +1,5 @@
 import React from "react";
 import "./ChooseList.css";
-import AddList from "./AddList";
 
 function ChooseList(props) {
     return <div>
@@ -11,12 +10,36 @@ function ChooseList(props) {
             aria-label="Hit space to select list"
         >
             {props.listOfLists.map(col =>
-                <option value={col.id}>List {col.name.substring(col.name.length - 1)}</option>)}
+                <option value={col.id}>{col.name}</option>)}
         </select>
 
-        <AddList
-            onListAdded={props.handleListAdded}
-            aria-label="Hit space to create a new list"
+        <button
+            className="editButton"
+            type={"button"}
+            id = "newList"
+            onClick={props.handleListAdded}
+            aria-label="Hit space to create a new list">
+            Edit
+        </button>
+
+        <button
+            className="addButton"
+            type={"button"}
+            id = "newList"
+            onClick={props.handleListAdded}
+            aria-label="Hit space to create a new list">
+            +
+        </button>
+
+        <input
+            className="text-input"
+            type="text"
+            name="task2"
+            value={props.name}
+            onChange={
+                (e) =>
+                    props.onItemChanged(props.id, "name", e.target.value)
+            }
         />
     </div>
 
