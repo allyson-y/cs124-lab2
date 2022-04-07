@@ -7,8 +7,7 @@ function ChooseList(props) {
             className="select"
             value={props.id}
             onChange={props.handleSelect}
-            aria-label="Hit space to select list"
-        >
+            aria-label="Hit space to select list">
             {props.listOfLists.map(col =>
                 <option value={col.id}>{col.name}</option>)}
         </select>
@@ -34,11 +33,10 @@ function ChooseList(props) {
         <input
             className="text-input"
             type="text"
-            name="task2"
-            value={props.name}
+            placeholder={"Edit list name"}
             onChange={
                 (e) =>
-                    props.onItemChanged(props.id, "name", e.target.value)
+                    props.handleListChanged(props.id, "name", e.target.value)
             }
         />
     </div>

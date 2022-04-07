@@ -3,7 +3,6 @@ import React from 'react';
 
 function PriorityButtons(props) {
     let displayList = ["high", "medium", "low"];
-    console.log(props.priority)
     return <span>
         <span className="priorityButtons1">
     <select

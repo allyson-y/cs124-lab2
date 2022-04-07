@@ -89,7 +89,7 @@ function App() {
         });
     }
 
-    function handleListAdded() {
+    function handleListAdded(listName) {
         let id = generateUniqueID();
         // setCollNum(collNum + 1);
         setDoc(doc(db, collectionName, id), {
@@ -124,6 +124,7 @@ function App() {
         setCurrListID(e.target.value);
         setNewList(collectionName + "/" + e.target.value + "/tasks");
         console.log(collectionName + "/" + e.target.value + "/tasks");
+        console.log(e.target.value);
     }
 
     return <>
@@ -133,7 +134,7 @@ function App() {
             {/*{todoLists.length > 1 && */}
             <ChooseList
                 handleSelect={handleSelectList}
-                // listName={listName}
+                listName={listName}
                 id={currListID}
                 listOfLists={todoLists}
                 handleListAdded={handleListAdded}
