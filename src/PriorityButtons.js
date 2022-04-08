@@ -25,7 +25,6 @@ function PriorityButtons(props) {
                 className={type}
                 id={(type === props.priority).toString()}
                 onClick={() => props.selectPriority(type)}
-                aria-label={"Hit space to mark this task " + displayList[props.priorityLevels.indexOf(type)] + " priority"}
             >
                 {displayList[props.priorityLevels.indexOf(type)]}
             </button>

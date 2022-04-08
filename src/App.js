@@ -43,16 +43,16 @@ function App() {
     const [sort, setSort] = useState("created");
     const [newList, setNewList] = useState(collectionName + "/" + initialID.toString() + "/tasks");
     const [currListID, setCurrListID] = useState(initialID);
-
+    const [showEditListName, setShowEditListName] = useState(false);
+    const [showAddDoneName, setShowAddDoneName] = useState(false);
+    const [inputName, setInputName] = useState("");
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
-    // console.log(parseInt(todoLists[todoLists.length - 1].name.substring(todoLists[todoLists.length - 1].name.length - 1)))
-    // let maxNum = todoLists ? parseInt(todoLists[todoLists.length - 1].name.substring(todoLists[todoLists.length - 1].name.length - 1)) : 1;
-    // const [collNum, setCollNum] = useState(2); //how to update it to the max number + 1?
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
-    const [listName, setListName] = useState(todoLists ? todoLists[0]["name"] : "List 1");
+    // const [listName, setListName] = useState(todoLists ? todoLists[0]["name"] : "List 1");
+    const [listName, setListName] = useState("List 1");
 
     if (loading | listLoading) {
         return <div>
@@ -89,18 +89,14 @@ function App() {
         });
     }
 
-    function handleListAdded(listName) {
+    function handleListAdded() {
         let id = generateUniqueID();
-        // setCollNum(collNum + 1);
         setDoc(doc(db, collectionName, id), {
             id: id,
-            // name: "todoList" + collNum.toString()
-            name: listName
+            name: "List Name"
         });
-        // console.log(collNum);
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
-        //     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-        //         sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
+        setShowAddDoneName(!showAddDoneName);
     }
 
     function handleListChanged(itemId, field, newValue) {
@@ -127,6 +123,19 @@ function App() {
         console.log(e.target.value);
     }
 
+    function toggleEditListName() {
+        setShowEditListName(!showEditListName);
+    }
+
+    function toggleAddDone() {
+        setShowAddDoneName(!showAddDoneName);
+        console.log(!showAddDoneName);
+    }
+
+    function setNameOfList(name) {
+        setListName(name);
+    }
+
     return <>
         <h1>To Do List</h1>
         <br/>
@@ -139,6 +148,13 @@ function App() {
                 listOfLists={todoLists}
                 handleListAdded={handleListAdded}
                 handleListChanged={handleListChanged}
+                showEditListName={showEditListName}
+                toggleEditListName={toggleEditListName}
+                showAddDoneName={showAddDoneName}
+                toggleAddDone={toggleAddDone}
+                inputName={inputName}
+                setInputName={setInputName}
+                setNameOfList={setNameOfList}
             />
         </div>
 
