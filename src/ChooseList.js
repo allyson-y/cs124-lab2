@@ -25,10 +25,19 @@ function ChooseList(props) {
             className="addButton"
             type={"button"}
             id = "newList"
-            // onClick={props.toggleAddDone}
             onClick={props.handleListAdded}
             aria-label="Hit space to create a new list">
             Add list
+        </button>
+
+        <button
+            className="deleteList"
+            type={"button"}
+            id = "deleteList"
+            onClick= {(e) =>
+            props.handleListDelete(props.id)}
+            aria-label="Hit space to delete to do list">
+            Delete list
         </button>
 
         <br></br>
@@ -52,24 +61,26 @@ function ChooseList(props) {
             Done
         </button>}
 
-        {props.showAddDoneName && <input
-            className="list-text-input"
-            type="text"
-            placeholder={"Type name"}
-            onChange={
-                (e) =>
-                    props.handleListChanged(props.id, "name", e.target.value)
-            }
-        />}
+        <br></br>
 
-        {props.showAddDoneName && <button
-            className="listDoneButton"
-            type={"button"}
-            id = "doneForAdd"
-            onClick={props.toggleAddDone}
-            aria-label="Hit space to finish editing list name">
-            Done
-        </button>}
+        {/*{props.showAddDoneName && <input*/}
+        {/*    className="list-text-input"*/}
+        {/*    type="text"*/}
+        {/*    placeholder={"Type name"}*/}
+        {/*    onChange={*/}
+        {/*        (e) =>*/}
+        {/*            props.handleListChanged(props.id, "name", e.target.value)*/}
+        {/*    }*/}
+        {/*/>}*/}
+
+        {/*{props.showAddDoneName && <button*/}
+        {/*    className="listDoneButton"*/}
+        {/*    type={"button"}*/}
+        {/*    id = "doneForAdd"*/}
+        {/*    onClick={props.toggleAddDone}*/}
+        {/*    aria-label="Hit space to finish editing list name">*/}
+        {/*    Done*/}
+        {/*</button>}*/}
 
         {/*{props.showAddDoneName && <input*/}
         {/*{<input*/}

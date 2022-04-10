@@ -136,6 +136,11 @@ function App() {
         setListName(name);
     }
 
+    function handleListDelete(itemId) {
+        deleteDoc(doc(db, collectionName, itemId));
+        console.log(itemId);
+    }
+
     return <>
         <h1>To Do List</h1>
         <br/>
@@ -155,6 +160,7 @@ function App() {
                 inputName={inputName}
                 setInputName={setInputName}
                 setNameOfList={setNameOfList}
+                handleListDelete={handleListDelete}
             />
         </div>
 
