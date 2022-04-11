@@ -131,19 +131,35 @@ function App() {
         console.log(!showAddDoneName);
     }
 
+    function setNameOfList(name) {
+        setListName(name);
+    }
+
+    function handleListDelete(itemId) {
+        deleteDoc(doc(db, collectionName, itemId));
+        console.log(itemId);
+    }
+
     return <>
         <h1>To Do List</h1>
         <br/>
         <div className="chooseList">
+            {/*{todoLists.length > 1 && */}
             <ChooseList
                 handleSelect={handleSelectList}
+                listName={listName}
                 id={currListID}
                 listOfLists={todoLists}
                 handleListAdded={handleListAdded}
                 handleListChanged={handleListChanged}
                 showEditListName={showEditListName}
                 toggleEditListName={toggleEditListName}
+                showAddDoneName={showAddDoneName}
                 toggleAddDone={toggleAddDone}
+                inputName={inputName}
+                setInputName={setInputName}
+                setNameOfList={setNameOfList}
+                handleListDelete={handleListDelete}
             />
         </div>
 
