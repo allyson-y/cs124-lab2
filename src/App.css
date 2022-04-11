@@ -26,13 +26,10 @@ body{
 }
 
 .chooseList {
+  /*display: grid;*/
   transform: scale(1.1);
-<<<<<<< HEAD
-  /*padding-bottom: 10px;*/
   padding-top: 10px;
-=======
   padding-bottom: 10px;
->>>>>>> e2b4a49e171ed224532aaed7e0ff9a7ba0dbc6c9
   padding-left: 20px;
   font-family: "Lucida Console", "Courier New", monospace;
   display: inline-block;

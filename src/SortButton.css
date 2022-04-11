@@ -4,10 +4,12 @@ body{
 
 .whole{
     /*display: compact;*/
+    padding-left: 20px;
 }
 
 .select {
     font-family: "Lucida Console", "Courier New", monospace;
+    /*padding-left: 120px;*/
 }
 
 #sortText {

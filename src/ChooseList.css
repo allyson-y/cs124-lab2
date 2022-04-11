@@ -4,6 +4,13 @@
     padding-right: 10px;
 }
 
+body{
+    display: inline-block;
+}
+
+.buttons{
+    display: inline-block;
+}
 
 .editButton {
     width: 90px;
@@ -33,10 +40,10 @@
     font-size: 15px;
     font-family: "Lucida Console", "Courier New", monospace;
     height: 22px;
-    /*font-weight: bold;*/
+    margin-right: 10px;
 }
 
-#deleteList {
+.deleteList {
     background-color: #800000; /* Red */
     border: none;
     color: white;
@@ -48,7 +55,7 @@
     font-family: "Lucida Console", "Courier New", monospace;
     height: 22px;
     width: 110px;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
 }
 
 .list-text-input {

@@ -7,36 +7,27 @@ function ChooseList(props) {
             className="select"
             value={props.id}
             onChange={props.handleSelect}
-<<<<<<< HEAD
             aria-label="Hit space to enter lists, use cursor to select list, hit space to confirm"
         >
-=======
-            aria-label="Hit space to select list">
->>>>>>> e2b4a49e171ed224532aaed7e0ff9a7ba0dbc6c9
+
             {props.listOfLists.map(col =>
                 <option value={col.id}>{col.name}</option>)}
         </select>
 
+        <span id={"buttons"}>
         <button
             className="editButton"
             type={"button"}
-<<<<<<< HEAD
-            id = "newList"
-            onClick={props.handleListAdded}
-            aria-label="Hit space to edit name of list">
-            Edit
-=======
-            id = "editListName"
+            id="editListName"
             onClick={props.toggleEditListName}
-            aria-label="Hit space to create a new list">
+            aria-label="Hit space to edit name of list">
             Edit name
->>>>>>> e2b4a49e171ed224532aaed7e0ff9a7ba0dbc6c9
         </button>
 
         <button
             className="addButton"
             type={"button"}
-            id = "newList"
+            id="newList"
             onClick={props.handleListAdded}
             aria-label="Hit space to create a new list">
             Add list
@@ -45,12 +36,14 @@ function ChooseList(props) {
         <button
             className="deleteList"
             type={"button"}
-            id = "deleteList"
-            onClick= {(e) =>
-            props.handleListDelete(props.id)}
-            aria-label="Hit space to delete to do list">
+            id="deleteList"
+            onClick={(e) =>
+                props.handleListDelete(props.id)}
+            aria-label={"Hit space to delete this list" + props.id}>
             Delete list
         </button>
+
+            </span>
 
         <br></br>
 
@@ -67,7 +60,7 @@ function ChooseList(props) {
         {props.showEditListName && <button
             className="listDoneButton"
             type={"button"}
-            id = "done"
+            id="done"
             onClick={props.toggleEditListName}
             aria-label="Hit space to finish editing list name">
             Done
