@@ -10,8 +10,9 @@ function Task(props) {
     }
 
     function selectPriority(selectedPriority) {
-        // console.log(selectedPriority.target.value)
-        props.onItemChanged(props.item.id, "priority", selectedPriority.target.value)
+        (typeof selectedPriority == "string" ?
+            props.onItemChanged(props.item.id, "priority", selectedPriority) :
+            props.onItemChanged(props.item.id, "priority", selectedPriority.target.value));
     }
 
     return <>

@@ -2,12 +2,16 @@ import "./PriorityButtons.css";
 import React from 'react';
 
 function PriorityButtons(props) {
+<<<<<<< HEAD
     const displayList = ["high", "medium", "low"];
     console.log("priority is " + props.priority.toString())
     console.log(props.priorityLevels)
     // console.log(displayList[indexOf(props.priority)])
     console.log(displayList[props.priorityLevels.indexOf(props.priority)])
 
+=======
+    let displayList = ["high", "medium", "low"];
+>>>>>>> e2b4a49e171ed224532aaed7e0ff9a7ba0dbc6c9
     return <span>
         <span className="priorityButtons1">
     <select
@@ -31,7 +35,6 @@ function PriorityButtons(props) {
                 className={type}
                 id={(type === props.priority).toString()}
                 onClick={() => props.selectPriority(type)}
-                aria-label={"Hit space to mark this task " + displayList[props.priorityLevels.indexOf(type)] + " priority"}
             >
                 {displayList[props.priorityLevels.indexOf(type)]}
             </button>
