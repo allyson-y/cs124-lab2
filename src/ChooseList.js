@@ -39,7 +39,7 @@ function ChooseList(props) {
             id="deleteList"
             onClick={(e) =>
                 props.handleListDelete(props.id)}
-            aria-label={"Hit space to delete this list" + props.id}>
+            aria-label={"Hit space to delete this list"}>
             Delete list
         </button>
 
@@ -67,46 +67,6 @@ function ChooseList(props) {
         </button>}
 
         <br></br>
-
-        {/*{props.showAddDoneName && <input*/}
-        {/*    className="list-text-input"*/}
-        {/*    type="text"*/}
-        {/*    placeholder={"Type name"}*/}
-        {/*    onChange={*/}
-        {/*        (e) =>*/}
-        {/*            props.handleListChanged(props.id, "name", e.target.value)*/}
-        {/*    }*/}
-        {/*/>}*/}
-
-        {/*{props.showAddDoneName && <button*/}
-        {/*    className="listDoneButton"*/}
-        {/*    type={"button"}*/}
-        {/*    id = "doneForAdd"*/}
-        {/*    onClick={props.toggleAddDone}*/}
-        {/*    aria-label="Hit space to finish editing list name">*/}
-        {/*    Done*/}
-        {/*</button>}*/}
-
-        {/*{props.showAddDoneName && <input*/}
-        {/*{<input*/}
-        {/*    className="text-input"*/}
-        {/*    type="text"*/}
-        {/*    placeholder={"Add list name"}*/}
-        {/*    onChange={*/}
-        {/*        (e) => props.setNameOfList(e.target.value)*/}
-        {/*        // props.handleListChanged(props.id, "name", e.target.value)*/}
-        {/*    }*/}
-        {/*/>}*/}
-
-        {/*{props.showAddDoneName && <button*/}
-        {/*{<button*/}
-        {/*    className="doneForAddButton"*/}
-        {/*    type={"button"}*/}
-        {/*    id = "doneForAddButton"*/}
-        {/*    onClick={props.handleListAdded(props.inputName)}*/}
-        {/*    aria-label="Hit space to finish editing list name">*/}
-        {/*    Done*/}
-        {/*</button>}*/}
     </div>
 
 }

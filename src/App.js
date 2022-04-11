@@ -51,7 +51,6 @@ function App() {
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
-    // const [listName, setListName] = useState(todoLists ? todoLists[0]["name"] : "List 1");
     const [listName, setListName] = useState("List 1");
 
     if (loading | listLoading) {
@@ -132,35 +131,19 @@ function App() {
         console.log(!showAddDoneName);
     }
 
-    function setNameOfList(name) {
-        setListName(name);
-    }
-
-    function handleListDelete(itemId) {
-        deleteDoc(doc(db, collectionName, itemId));
-        console.log(itemId);
-    }
-
     return <>
         <h1>To Do List</h1>
         <br/>
         <div className="chooseList">
-            {/*{todoLists.length > 1 && */}
             <ChooseList
                 handleSelect={handleSelectList}
-                listName={listName}
                 id={currListID}
                 listOfLists={todoLists}
                 handleListAdded={handleListAdded}
                 handleListChanged={handleListChanged}
                 showEditListName={showEditListName}
                 toggleEditListName={toggleEditListName}
-                showAddDoneName={showAddDoneName}
                 toggleAddDone={toggleAddDone}
-                inputName={inputName}
-                setInputName={setInputName}
-                setNameOfList={setNameOfList}
-                handleListDelete={handleListDelete}
             />
         </div>
 
