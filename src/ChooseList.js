@@ -7,7 +7,7 @@ function ChooseList(props) {
             className="select"
             value={props.id}
             onChange={props.handleSelect}
-            aria-label="Hit space to select list"
+            aria-label="Hit space to enter lists, use cursor to select list, hit space to confirm"
         >
             {props.listOfLists.map(col =>
                 <option value={col.id}>{col.name}</option>)}
@@ -18,7 +18,7 @@ function ChooseList(props) {
             type={"button"}
             id = "newList"
             onClick={props.handleListAdded}
-            aria-label="Hit space to create a new list">
+            aria-label="Hit space to edit name of list">
             Edit
         </button>
 

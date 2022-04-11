@@ -2,17 +2,18 @@ import React from "react";
 import "./SortButton.css";
 
 function SortButton(props) {
-    return <div>
+    return <div id={"whole"}>
         <span id={"sortText"}>
             Sort By:&nbsp;
         </span>
         <select
+            id="select"
             className="select"
             value={props.sort}
             onChange={props.handleSelect}
-            aria-label="Hit space to select sorting method"
+            aria-label="Hit space to enter sorting methods, use cursor to select method, hit space to confirm"
         >
-            <option value="textInput">Name</option>
+            <option value="name">Name</option>
             <option value="priority">Priority</option>
             <option value="created">Date Created</option>
         </select>

@@ -14,6 +14,23 @@ button {
     height: 25px;
 }
 
+select {
+    background: white;
+    color: purple;
+}
+
+/*select option {*/
+/*    background: rgba(0, 0, 0, 0.3);*/
+/*    color: #fff;*/
+/*    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);*/
+/*}*/
+
+#select option[value="a"] {
+    color: white;
+    background-color: #1F51FF;
+}
+
+
 /*low*/
 .a{
     color: white;
