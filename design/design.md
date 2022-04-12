@@ -33,3 +33,7 @@ posed some challenges because we had to implement a couple of more constructors 
 ### Parts of the design we're most proud of
 As was the case last time, we feel proud of the simplicity of the color and structure, which leads to the ease of
 understanding and using. Having "Completed" section also added a different layer to this app as a todo checker!
+
+### Video of accessibility function
+Using our application entirely from the keyboard - https://youtu.be/CB8B5v1TiCg
+Using our application using a screenreader - 
