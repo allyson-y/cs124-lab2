@@ -49,4 +49,4 @@ So, from  <img src="priorityButtons.png" height="100"> to <img src="priorityDrop
 ### Videos of accessibility functions
 Using our application entirely from the keyboard - https://youtu.be/CB8B5v1TiCg
 
-Using our application using a screenreader - https://youtu.be/os7RTLp9hFo
+Using our application using a screen reader - https://youtu.be/os7RTLp9hFo
