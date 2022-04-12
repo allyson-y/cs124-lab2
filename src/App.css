@@ -1,3 +1,7 @@
+body{
+  /*display:grid;*/
+}
+
 .App {
   text-align: center;
 }
@@ -14,9 +18,21 @@
 }
 
 .sortButton {
-  padding-bottom: 10px;
-  padding-left: 270px;
+  display: grid;
+  padding-top: 20px;
+  padding-bottom: 12px;
+  padding-left: 40px;
+  /*transform: scale(1.1);*/
+}
+
+.chooseList {
+  /*display: grid;*/
   transform: scale(1.1);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  display: inline-block;
 }
 
 #thisButton {
@@ -33,6 +49,7 @@ h4 {
   font-family: "Lucida Console", "Courier New", monospace;
   font-size: 20px;
 }
+
 
 .App-header {
   background-color: #282c34;

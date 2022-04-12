@@ -7,9 +7,9 @@ import TaskList from './taskList';
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import Alert from "./Alert";
 import SortButton from "./SortButton";
-import AddList from "./AddList";
+import ChooseList from "./ChooseList";
 
-import { initializeApp } from "firebase/app";
+import {initializeApp} from "firebase/app";
 import {
     getFirestore,
     query,
@@ -34,44 +34,52 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-const collectionName = "todos";
+const collectionName = "base";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
+const initialID = "v2-1649047416480-5386782840773";
 
 function App() {
     const [showAlert, setShowAlert] = useState(false);
     const [sort, setSort] = useState("created");
+    const [newList, setNewList] = useState(collectionName + "/" + initialID.toString() + "/tasks");
+    const [currListID, setCurrListID] = useState(initialID);
+    const [showEditListName, setShowEditListName] = useState(false);
+    const [showAddDoneName, setShowAddDoneName] = useState(false);
+    const [inputName, setInputName] = useState("");
+    const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
 
-    const [todos, loading, error] = useCollectionData(query(collection(db, collectionName), orderBy(
-        sort === "created"? "created" : (sort === "priority" ? "priority" : "textInput"))));
+    const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
-    const[lists] = useCollectionData(query(collection(db, "lists")));
+    const [listName, setListName] = useState("List 1");
 
-    if (loading) {
+    if (loading | listLoading) {
         return <div>
             <h1>To Do List</h1>
             Loading!
         </div>
     }
 
-    if (error) {
-        return error.toString();
+    if (error | listError) {
+        return listError.toString() + error.toString();
     }
 
     let completedList = todos.filter(item => item.isCompleted);
     let uncompletedList = todos.filter(item => !item.isCompleted)
 
     function handleItemChanged(itemId, field, newValue) {
-        updateDoc(doc(db, collectionName, itemId),
+        updateDoc(doc(db, newList, itemId),
             {[field]: newValue});
     }
 
     function handleCompletedDeleted() {
-        completedList.forEach(item => deleteDoc(doc(db, collectionName, item.id)));
+        completedList.forEach(item => deleteDoc(doc(db, newList, item.id)));
     }
 
     function handleItemAdded() {
         let id = generateUniqueID();
-        setDoc(doc(db, collectionName, id), {
+        console.log(newList);
+        setDoc(doc(db, newList, id), {
             id: id,
             isCompleted: false,
             textInput: "",
@@ -80,12 +88,19 @@ function App() {
         });
     }
 
-    function handleListAdded(){
+    function handleListAdded() {
         let id = generateUniqueID();
-        setDoc(doc(db, "lists", id), {
+        setDoc(doc(db, collectionName, id), {
             id: id,
-            created: serverTimestamp(),
+            name: "List Name"
         });
+        setNewList(collectionName + "/" + currListID.toString() + "/tasks");
+        setShowAddDoneName(!showAddDoneName);
+    }
+
+    function handleListChanged(itemId, field, newValue) {
+        updateDoc(doc(db, collectionName, itemId),
+            {[field]: newValue});
     }
 
     function alertDelete() {
@@ -96,24 +111,65 @@ function App() {
         setShowAlert(!showAlert);
     }
 
-    function handleSelect(e) {
+    function handleSelectSort(e) {
         setSort(e.target.value);
+    }
+
+    function handleSelectList(e) {
+        setCurrListID(e.target.value);
+        setNewList(collectionName + "/" + e.target.value + "/tasks");
+        console.log(collectionName + "/" + e.target.value + "/tasks");
+        console.log(e.target.value);
+    }
+
+    function toggleEditListName() {
+        setShowEditListName(!showEditListName);
+    }
+
+    function toggleAddDone() {
+        setShowAddDoneName(!showAddDoneName);
+        console.log(!showAddDoneName);
+    }
+
+    function setNameOfList(name) {
+        setListName(name);
+    }
+
+    function handleListDelete(itemId) {
+        deleteDoc(doc(db, collectionName, itemId));
+        console.log(itemId);
     }
 
     return <>
         <h1>To Do List</h1>
-        {todos.length === 0 && <h4>No items</h4>}
+        <br/>
+        <div className="chooseList">
+            {/*{todoLists.length > 1 && */}
+            <ChooseList
+                handleSelect={handleSelectList}
+                listName={listName}
+                id={currListID}
+                listOfLists={todoLists}
+                handleListAdded={handleListAdded}
+                handleListChanged={handleListChanged}
+                showEditListName={showEditListName}
+                toggleEditListName={toggleEditListName}
+                showAddDoneName={showAddDoneName}
+                toggleAddDone={toggleAddDone}
+                inputName={inputName}
+                setInputName={setInputName}
+                setNameOfList={setNameOfList}
+                handleListDelete={handleListDelete}
+            />
+        </div>
 
-        <AddList
-            onListAdded={handleListAdded}
-        />
-
-        <div className = "sortButton">
+        <div className="sortButton">
             {todos.length > 1 && <SortButton
-            handleSelect={handleSelect}
-            sort={sort}
+                handleSelect={handleSelectSort}
+                sort={sort}
             />}
         </div>
+        {todos.length === 0 && <h4>No items</h4>}
 
         <TaskList
             uncompletedTodo={uncompletedList}
