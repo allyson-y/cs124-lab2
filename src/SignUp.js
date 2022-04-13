@@ -32,6 +32,12 @@ function SignUp(props) {
             <button onClick={() => createUserWithEmailAndPassword(email, password)}>
                 Sign up
             </button>
+            <div>
+                Have an account?
+                <button onClick={props.toggleSignUp}>
+                    Log in
+                </button>
+            </div>
         </div>
     );
 }

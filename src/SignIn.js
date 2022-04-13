@@ -42,6 +42,11 @@ function SignIn(props) {
             <div>
                 <button onClick={() => signInWithGoogle()}>Sign in with Google</button>
             </div>
+
+            Don't have an account?
+            <button onClick={props.toggleSignUp}>
+                Sign up
+            </button>
         </div>
     );
 }
