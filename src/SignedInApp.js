@@ -159,7 +159,6 @@ function SignedInApp(props) {
                 Validate email
             </button>
         )}
-        <button onClick={() => signOut(props.auth)}>Sign Out</button>
 
 
         <div className="chooseList">
@@ -212,6 +211,7 @@ function SignedInApp(props) {
                 </div>
             </Alert>}
         </div>
+        <button onClick={() => signOut(props.auth)}>Sign Out</button>
     </>
 }
 
