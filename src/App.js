@@ -1,6 +1,14 @@
 import './App.css';
 import React, {useState} from "react";
 
+import {getAuth, signOut, sendEmailVerification} from "firebase/auth";
+import {
+    useAuthState,
+    useSignInWithGoogle,
+    useSignInWithEmailAndPassword,
+    useCreateUserWithEmailAndPassword,
+} from "react-firebase-hooks/auth";
+
 import AddButton from "./addButton";
 import DeleteButton from "./deleteButton";
 import TaskList from './taskList';
@@ -20,6 +28,7 @@ import {
     updateDoc,
     doc,
     deleteDoc,
+    where,
 } from "firebase/firestore";
 import {useCollectionData} from "react-firebase-hooks/firestore";
 
@@ -38,7 +47,103 @@ const collectionName = "base";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
 const initialID = "v2-1649047416480-5386782840773";
 
+const auth = getAuth();
+
 function App() {
+    const [user, loading, error] = useAuthState(auth);
+
+    return user ? (
+        <SignedInApp user={user}/>
+    ) : (
+        <div>
+            <SignIn/>
+            <SignUp/>
+        </div>
+    );
+}
+
+function SignIn() {
+    const [signInWithGoogle, googleUser, googleLoading, googleError] =
+        useSignInWithGoogle(auth);
+    const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] =
+        useSignInWithEmailAndPassword(auth);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+        <div>
+            <h1>Sign In</h1>
+            <div>
+                <label htmlFor="email">Email: </label>
+                <input
+                    type="text"
+                    id="email"
+                    name="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                />
+                <br/>
+                <label htmlFor="password">Password: </label>
+                <input
+                    type="text"
+                    id="password"
+                    name="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+                <br/>
+                <button onClick={() => signInWithEmailAndPassword(email, password)}>
+                    Sign in with email and password
+                </button>
+            </div>
+
+            <br/>
+
+            <div>
+                <button onClick={() => signInWithGoogle()}>Sign in with Google</button>
+            </div>
+        </div>
+    );
+}
+
+function SignUp() {
+    const [createUserWithEmailAndPassword, user, loading, error] =
+        useCreateUserWithEmailAndPassword(auth);
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+
+    return (
+        <div>
+            <h1>Sign Up</h1>
+            <label htmlFor="email">Email: </label>
+            <input
+                type="text"
+                id="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+            />
+            <br/>
+            <label htmlFor="password">Password: </label>
+            <input
+                type="text"
+                id="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
+            <br/>
+            <button onClick={() => createUserWithEmailAndPassword(email, password)}>
+                Sign up
+            </button>
+        </div>
+    );
+}
+
+function SignedInApp(props) {
+
     const [showAlert, setShowAlert] = useState(false);
     const [sort, setSort] = useState("created");
     const [newList, setNewList] = useState(collectionName + "/" + initialID.toString() + "/tasks");
@@ -140,9 +245,28 @@ function App() {
         console.log(itemId);
     }
 
+
+    if (error) {
+        return "error" + error;
+    }
+    if (loading) {
+        return "loading..";
+    }
+
     return <>
         <h1>To Do List</h1>
         <br/>
+
+
+        <p>Signed in as {props.user.email}</p>
+        {!props.user.emailVerified && (
+            <button onClick={() => sendEmailVerification(props.user)}>
+                Validate email
+            </button>
+        )}
+        <button onClick={() => signOut(auth)}>Sign Out</button>
+
+
         <div className="chooseList">
             {/*{todoLists.length > 1 && */}
             <ChooseList
@@ -195,5 +319,6 @@ function App() {
         </div>
     </>
 }
+
 
 export default App;
