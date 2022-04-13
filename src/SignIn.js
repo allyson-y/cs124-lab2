@@ -1,11 +1,11 @@
 import {useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 import React, {useState} from "react";
 
-function SignIn() {
+function SignIn(props) {
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
-        useSignInWithGoogle(auth);
+        useSignInWithGoogle(props.auth);
     const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] =
-        useSignInWithEmailAndPassword(auth);
+        useSignInWithEmailAndPassword(props.auth);
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");

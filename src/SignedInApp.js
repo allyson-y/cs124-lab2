@@ -1,6 +1,16 @@
 import React, {useState} from "react";
 import {useCollectionData} from "react-firebase-hooks/firestore";
-import {collection, deleteDoc, doc, orderBy, query, serverTimestamp, setDoc, updateDoc} from "firebase/firestore";
+import {
+    collection,
+    deleteDoc,
+    doc,
+    getFirestore,
+    orderBy,
+    query,
+    serverTimestamp,
+    setDoc,
+    updateDoc
+} from "firebase/firestore";
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {sendEmailVerification, signOut} from "firebase/auth";
 import ChooseList from "./ChooseList";
@@ -9,6 +19,23 @@ import TaskList from "./taskList";
 import AddButton from "./addButton";
 import DeleteButton from "./deleteButton";
 import Alert from "./Alert";
+import {initializeApp} from "firebase/app";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyAwgiUzrKROpWbF5MsvzmVZR117tTiYD9s",
+    authDomain: "cs124-lab3-23fc7.firebaseapp.com",
+    projectId: "cs124-lab3-23fc7",
+    storageBucket: "cs124-lab3-23fc7.appspot.com",
+    messagingSenderId: "850754803504",
+    appId: "1:850754803504:web:7fc3629eb6e96acfd61af5"
+};
+
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+const collectionName = "base";
+const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
+const initialID = "v2-1649047416480-5386782840773";
+
 
 function SignedInApp(props) {
 
@@ -132,7 +159,7 @@ function SignedInApp(props) {
                 Validate email
             </button>
         )}
-        <button onClick={() => signOut(auth)}>Sign Out</button>
+        <button onClick={() => signOut(props.auth)}>Sign Out</button>
 
 
         <div className="chooseList">
