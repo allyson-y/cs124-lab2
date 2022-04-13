@@ -5,7 +5,7 @@ import {getAuth} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
 
 import SignedInApp from "./SignedInApp";
-import SignIn from "./SignIn";
+import LogIn from "./LogIn";
 import SignUp from "./SignUp";
 
 const auth = getAuth();
@@ -39,7 +39,7 @@ function App() {
                     auth={auth}
                     toggleSignUp={toggleSignUp}/>
                     :
-                    <SignIn
+                    <LogIn
                     auth={auth}
                     toggleSignUp={toggleSignUp} />}
             </div>

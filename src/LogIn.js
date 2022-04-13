@@ -1,7 +1,7 @@
 import {useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 import React, {useState} from "react";
 
-function SignIn(props) {
+function LogIn(props) {
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(props.auth);
     const [signInWithEmailAndPassword, emailUser, emailLoading, emailError] =
@@ -12,7 +12,7 @@ function SignIn(props) {
 
     return (
         <div>
-            <h1>Sign In</h1>
+            <h1>Log In</h1>
             <div>
                 <label htmlFor="email">Email: </label>
                 <input
@@ -33,7 +33,7 @@ function SignIn(props) {
                 />
                 <br/>
                 <button onClick={() => signInWithEmailAndPassword(email, password)}>
-                    Sign in with email and password
+                    Log In
                 </button>
             </div>
 
@@ -51,4 +51,4 @@ function SignIn(props) {
     );
 }
 
-export default SignIn;
+export default LogIn;
