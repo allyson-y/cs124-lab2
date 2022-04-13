@@ -1,5 +1,7 @@
 import {useSignInWithEmailAndPassword, useSignInWithGoogle} from "react-firebase-hooks/auth";
 import React, {useState} from "react";
+import Alert from "./Alert";
+
 
 function LogIn(props) {
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
@@ -9,6 +11,19 @@ function LogIn(props) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+
+    const [showAlert, setShowAlert] = useState(false);
+
+
+    if (emailError){
+        // return "error";
+        return<Alert>
+            <div>
+                Account is not found
+            </div>
+        </Alert>;
+    }
+
 
     return (
         <div>
