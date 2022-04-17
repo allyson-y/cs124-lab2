@@ -12,21 +12,34 @@ function LogIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const [showAlert, setShowAlert] = useState(false);
+    const [showAlert, setShowAlert] = useState(true);
 
-
-    if (emailError){
-        // return "error";
-        return<Alert>
-            <div>
-                Account is not found
-            </div>
-        </Alert>;
+    function alertToggle() {
+        setShowAlert(!showAlert);
     }
+
+    if (googleUser || emailUser) {
+        // Shouldn't happen because App should see that
+        // we are signed in.
+        return <h1>Unexpectedly signed in already</h1>;
+    } else if (googleLoading || emailLoading) {
+        return <h1>Logging in…</h1>;
+    }
+
+    // if (emailError){
+    //     // return "error";
+    //     return<Alert>
+    //         <div>
+    //             Account is not found
+    //         </div>
+    //     </Alert>;
+    // }
 
 
     return (
         <div>
+            {googleError && showAlert && <Alert onClose={alertToggle} onOK={alertToggle}><p>{googleError.message}</p></Alert>}
+            {emailError && showAlert && <Alert onClose={alertToggle} onOK={alertToggle}><p>{emailError.message}</p></Alert>}
             <h1>Log In</h1>
             <div>
                 <label htmlFor="email">Email: </label>

@@ -1,5 +1,6 @@
 import {useCreateUserWithEmailAndPassword} from "react-firebase-hooks/auth";
 import React, {useState} from "react";
+import Alert from "./Alert";
 
 function SignUp(props) {
     const [createUserWithEmailAndPassword, user, loading, error] =
@@ -8,8 +9,25 @@ function SignUp(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [showAlert, setShowAlert] = useState(true);
+
+    function toggleAlert() {
+        setShowAlert(!showAlert);
+    }
+
+    if (user) {
+        return <h1>Unexpectedly signing in already</h1>;
+    } else if (loading) {
+        return <h1>Signing up...</h1>;
+    }
+
+    // if (error) {
+    //     return <p>Error: {error.message}</p>
+    // }
+
     return (
         <div>
+            {error && showAlert && <Alert onClose={toggleAlert} onOK={toggleAlert}><p>Error signing up: {error.message}</p></Alert>}
             <h1>Sign Up</h1>
             <label htmlFor="email">Email: </label>
             <input
