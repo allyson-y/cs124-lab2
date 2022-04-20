@@ -9,7 +9,8 @@ import {
     query,
     serverTimestamp,
     setDoc,
-    updateDoc
+    updateDoc,
+    where
 } from "firebase/firestore";
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
 import {sendEmailVerification, signOut} from "firebase/auth";
@@ -49,7 +50,8 @@ function SignedInApp(props) {
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
+        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
+        where("owner", "==", props.user.uid)));
 
     const [listName, setListName] = useState("List 1");
 
@@ -64,8 +66,8 @@ function SignedInApp(props) {
         return listError.toString() + error.toString();
     }
 
-    let completedList = todos.filter(item => item.isCompleted);
-    let uncompletedList = todos.filter(item => !item.isCompleted)
+    let completedList = todos ? todos.filter(item => item.isCompleted) : null;
+    let uncompletedList = todos ? todos.filter(item => !item.isCompleted) : null;
 
     function handleItemChanged(itemId, field, newValue) {
         updateDoc(doc(db, newList, itemId),
