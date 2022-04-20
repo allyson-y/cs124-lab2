@@ -50,8 +50,8 @@ function SignedInApp(props) {
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
-        where("owner", "==", props.user.uid)));
+        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"));
+        // where("owner", "==", props.user.uid)));
 
     const [listName, setListName] = useState("List 1");
 
@@ -161,6 +161,9 @@ function SignedInApp(props) {
                 Validate email
             </button>
         )}
+
+
+
 
 
         <div className="chooseList">
