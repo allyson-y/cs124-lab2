@@ -162,7 +162,7 @@ function SignedInApp(props) {
             </button>
         )}
 
-
+        {/*<p>Shared with {props.user.sharedWith}</p>*/}
 
 
 
