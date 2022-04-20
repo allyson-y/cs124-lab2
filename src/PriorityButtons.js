@@ -19,7 +19,7 @@ function PriorityButtons(props) {
         aria-label={"Hit space to enter priorities, use cursor to select priority, hit space to confirm"}
     >
         {props.priorityLevels.map(type =>
-            <option value={type} class="a">{displayList[props.priorityLevels.indexOf(type)]}</option>
+            <option value={type} className="a">{displayList[props.priorityLevels.indexOf(type)]}</option>
         )}
    </select>
             </span>

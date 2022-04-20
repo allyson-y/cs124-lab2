@@ -33,7 +33,7 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-const collectionName = "base";
+const collectionName = "App-AuthenticationRequired";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
 const initialID = "v2-1649047416480-5386782840773";
 
@@ -51,7 +51,7 @@ function SignedInApp(props) {
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
-        // where("owner", "==", props.user.uid)));
+        // ,where("owner", "==", props.user.uid)));
 
     const [listName, setListName] = useState("List 1");
 
