@@ -4,10 +4,10 @@ import React from 'react';
 function PriorityButtons(props) {
     let displayList = ["high", "medium", "low"];
 
-    console.log("priority is " + props.priority.toString())
-    console.log(props.priorityLevels)
+    // console.log("priority is " + props.priority.toString())
+    // console.log(props.priorityLevels)
     // console.log(displayList[indexOf(props.priority)])
-    console.log(displayList[props.priorityLevels.indexOf(props.priority)])
+    // console.log(displayList[props.priorityLevels.indexOf(props.priority)])
 
     return <span>
         <span className="priorityButtons1">
