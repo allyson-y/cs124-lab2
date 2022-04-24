@@ -49,14 +49,19 @@ function SignedInApp(props) {
     const [inputName, setInputName] = useState("");
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
 
-    // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-    //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
-    //     where("owner", "==", props.user.uid)));
-
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
+        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
+        where("owner", "==", props.user.uid)));
 
-    // console.log(props.user.uid);
+    // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+    //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
+
+    // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
+    //     where("owner", "==", props.user.uid),
+    //     orderBy("priority")
+    //     ));
+
+    console.log(props.user.uid);
     // console.log(todos);
 
     const [listName, setListName] = useState("List 1");
@@ -100,7 +105,9 @@ function SignedInApp(props) {
         let id = generateUniqueID();
         setDoc(doc(db, collectionName, id), {
             id: id,
-            name: "List Name"
+            name: "List Name",
+            owner: props.user.uid
+            //owner and sharedWith
         });
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
         setShowAddDoneName(!showAddDoneName);
@@ -221,7 +228,7 @@ function SignedInApp(props) {
                 </div>
             </Alert>}
         </div>
-        <button onClick={() => signOut(props.auth)}>Sign Out</button>
+        <button className="signOut" onClick={() => signOut(props.auth)}>Sign Out</button>
     </>
 }
 
