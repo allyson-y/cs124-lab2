@@ -49,9 +49,15 @@ function SignedInApp(props) {
     const [inputName, setInputName] = useState("");
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
 
+    // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+    //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
+    //     where("owner", "==", props.user.uid)));
+
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
-        // ,where("owner", "==", props.user.uid)));
+
+    // console.log(props.user.uid);
+    // console.log(todos);
 
     const [listName, setListName] = useState("List 1");
 
@@ -167,7 +173,6 @@ function SignedInApp(props) {
 
 
         <div className="chooseList">
-            {/*{todoLists.length > 1 && */}
             <ChooseList
                 handleSelect={handleSelectList}
                 listName={listName}
