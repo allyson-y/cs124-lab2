@@ -34,6 +34,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
 const collectionName = "App-AuthenticationRequired";
+// const collectionName = "App-SharingAllowed";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
 const initialID = "v2-1649047416480-5386782840773";
 
@@ -47,22 +48,35 @@ function SignedInApp(props) {
     const [showEditListName, setShowEditListName] = useState(false);
     const [showAddDoneName, setShowAddDoneName] = useState(false);
     const [inputName, setInputName] = useState("");
-    const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName)));
+    const [sharedWith, setSharedWith] = useState(["allyaoyao32@gmail.com"]);
 
-    const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
+    const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
         where("owner", "==", props.user.uid)));
+
+    // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+    //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
+    //     where("owner", "==", props.user.uid)));
 
     // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
     //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
-    // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
-    //     where("owner", "==", props.user.uid),
-    //     orderBy("priority")
-    //     ));
+    const [todos, loading, error] = useCollectionData(query(collection(db, newList),
+        // orderBy("created"), doesn't work with orderBy, does user have sharedWith parameter
+        where("owner", "==", props.user.uid)
+        ));
 
-    console.log(props.user.uid);
-    // console.log(todos);
+    // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
+    //     props.user.sharedWith ?
+    //         where("email", "in", props.user.sharedWith) :
+    //         where("owner", "==", props.user.uid)));
+
+    // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
+    //         where("email", "in", props.user.sharedWith)));
+
+    // console.log(props.user.uid);
+    console.log(props.user.email + "user");
+    console.log(todos);
+    console.log(todoLists);
 
     const [listName, setListName] = useState("List 1");
 
@@ -94,6 +108,8 @@ function SignedInApp(props) {
         console.log(newList);
         setDoc(doc(db, newList, id), {
             id: id,
+            owner: props.user.uid,
+            sharedWith: sharedWith,
             isCompleted: false,
             textInput: "",
             created: serverTimestamp(),
@@ -106,9 +122,10 @@ function SignedInApp(props) {
         setDoc(doc(db, collectionName, id), {
             id: id,
             name: "List Name",
-            owner: props.user.uid
-            //owner and sharedWith
-        });
+            owner: props.user.uid,
+            sharedWith: sharedWith
+        }); //owner and sharedWith
+        console.log("added list" + id.toString());
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
         setShowAddDoneName(!showAddDoneName);
     }
