@@ -53,22 +53,11 @@ function SignedInApp(props) {
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
         where("owner", "==", props.user.uid)));
 
-    // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-    //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput")),
-    //     where("owner", "==", props.user.uid)));
+    const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
+        sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
-    // const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
-    //     sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
-
-    const [todos, loading, error] = useCollectionData(query(collection(db, newList),
-        // orderBy("created"), doesn't work with orderBy, does user have sharedWith parameter
-        where("owner", "==", props.user.uid)
-        ));
-
-    // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
-    //     props.user.sharedWith ?
-    //         where("email", "in", props.user.sharedWith) :
-    //         where("owner", "==", props.user.uid)));
+    // two separate queries
+    // or check if email of owner in sharedWith
 
     // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
     //         where("email", "in", props.user.sharedWith)));
