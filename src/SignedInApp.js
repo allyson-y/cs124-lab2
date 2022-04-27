@@ -33,8 +33,8 @@ const firebaseConfig = {
 
 const firebaseApp = initializeApp(firebaseConfig);
 const db = getFirestore(firebaseApp);
-const collectionName = "App-AuthenticationRequired";
-// const collectionName = "App-SharingAllowed";
+// const collectionName = "App-AuthenticationRequired";
+const collectionName = "App-SharingAllowed";
 const priorityLevels = ["a", "b", "c"]; //the low, medium, high display is in PriorityButtons.js
 const initialID = "v2-1649047416480-5386782840773";
 
@@ -48,10 +48,12 @@ function SignedInApp(props) {
     const [showEditListName, setShowEditListName] = useState(false);
     const [showAddDoneName, setShowAddDoneName] = useState(false);
     const [inputName, setInputName] = useState("");
-    const [sharedWith, setSharedWith] = useState(["allyaoyao32@gmail.com"]);
+    const [sharedWith, setSharedWith] = useState([props.user.uid]);
 
+    // const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
+    //     where("owner", "==", props.user.uid)));
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
-        where("owner", "==", props.user.uid)));
+        where("sharedWith", "array-contains", props.user.email)));
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
