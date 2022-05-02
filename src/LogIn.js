@@ -11,19 +11,15 @@ function LogIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    // const [showAlert, setShowAlert] = useState(true);
+    function alertToggle() {
+        setEmailAlert(!emailAlert);
+    }
 
-    // function alertToggle() {
-    //     setShowAlert(!showAlert);
-    // }
+    const [emailAlert, setEmailAlert] = useState(false);
 
     function signInWithEmail(email, password){
-        console.log("signInWithEmail is called")
         if (emailError){
-            console.log("email error!");
-            console.log(emailError);
-            // return <Alert onClose={alertToggle} onOK={alertToggle}><p>{emailError.message}</p></Alert>;
-            return <Alert><p>{emailError.message}</p></Alert>;
+            setEmailAlert(true);
         } else{
             signInWithEmailAndPassword(email, password);
         }
@@ -36,21 +32,12 @@ function LogIn(props) {
     } else if (googleLoading || emailLoading) {
         return <h1>Logging in…</h1>;
     }
-    // console.log("emailError", emailError);
-    // console.log("showAlert", showAlert);
-    // console.log("googleError", googleError);
+
     return (
         <div>
-            {/*{googleError && showAlert && <Alert onClose={alertToggle} onOK={alertToggle}><p>{googleError.message}</p></Alert>}*/}
-            {/*{emailError && showAlert && <Alert onClose={alertToggle} onOK={alertToggle}><p>{emailError.message}</p></Alert>}*/}
+            {emailAlert && <Alert onClose={alertToggle} onOK={alertToggle}>
+                <p>{"We cannot find an account with that email address"}</p></Alert>}
 
-            {/*{emailError && showAlert && setShowAlert(!showAlert) &&*/}
-            {/*    // <Alert onClose={alertToggle} onOK={alertToggle}><p>Account is not found. Please sign up!</p></Alert>}*/}
-            {/*    {emailError*/}
-            {/*        && <Alert onClose={alertToggle} onOK={alertToggle}><p>Account is not found. Please sign up!</p></Alert>*/}
-            {/*        && showAlert*/}
-            {/*    }*/}
-            {/*{setShowAlert(true)}*/}
             <h1>Log In</h1>
             <div>
                 <label htmlFor="email">Email: </label>
@@ -76,9 +63,7 @@ function LogIn(props) {
                     Log In
                 </button>
             </div>
-
             <br/>
-
             <div>
                 <button onClick={() => signInWithGoogle()}>Sign in with Google</button>
             </div>
