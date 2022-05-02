@@ -21,6 +21,7 @@ import AddButton from "./addButton";
 import DeleteButton from "./deleteButton";
 import Alert from "./Alert";
 import {initializeApp} from "firebase/app";
+import AddSharedUser from "./AddSharedUser";
 
 const firebaseConfig = {
     apiKey: "AIzaSyAwgiUzrKROpWbF5MsvzmVZR117tTiYD9s",
@@ -48,21 +49,22 @@ function SignedInApp(props) {
     const [showEditListName, setShowEditListName] = useState(false);
     const [showAddDoneName, setShowAddDoneName] = useState(false);
     const [inputName, setInputName] = useState("");
-    const [sharedWith, setSharedWith] = useState([props.user.uid]);
+    const [sharedWith, setSharedWith] = useState([]);
+    const [sharedUser, setSharedUser] = useState("");
 
     // const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
     //     where("owner", "==", props.user.uid)));
+    // const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
+    //     where("sharedWith", "array-contains", props.user.email)));
     const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
-        where("sharedWith", "array-contains", props.user.email)));
+            where("sharedWith", "array-contains", props.user.email)));
 
     const [todos, loading, error] = useCollectionData(query(collection(db, newList), orderBy(
         sort === "created" ? "created" : (sort === "priority" ? "priority" : "textInput"))));
 
     // two separate queries
     // or check if email of owner in sharedWith
-
-    // const [todos, loading, error] = useCollectionData(query(collection(db, newList),
-    //         where("email", "in", props.user.sharedWith)));
+    // owner's email in sharedWith
 
     // console.log(props.user.uid);
     console.log(props.user.email + "user");
@@ -114,9 +116,10 @@ function SignedInApp(props) {
             id: id,
             name: "List Name",
             owner: props.user.uid,
-            sharedWith: sharedWith
+            sharedWith: [props.user.email],
         }); //owner and sharedWith
-        console.log("added list" + id.toString());
+        console.log("added list " + id.toString());
+        console.log(sharedWith);
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
         setShowAddDoneName(!showAddDoneName);
     }
@@ -163,6 +166,15 @@ function SignedInApp(props) {
         console.log(itemId);
     }
 
+    function handleSharedUserChanged(e) {
+        setSharedUser(e.target.value);
+        console.log(e);
+    }
+
+    function shareList() {
+        console.log("shared list with "+ sharedUser);
+    }
+
 
     if (error) {
         return "error" + error;
@@ -175,17 +187,19 @@ function SignedInApp(props) {
         <h1>To Do List</h1>
         <br/>
 
-
         <p>Signed in as {props.user.email}</p>
         {!props.user.emailVerified && (
             <button onClick={() => sendEmailVerification(props.user)}>
                 Validate email
             </button>
         )}
-
-        {/*<p>Shared with {props.user.sharedWith}</p>*/}
-
-
+        <div>
+            <AddSharedUser
+                shareList={shareList}
+                handleChange={handleSharedUserChanged}
+                value={sharedUser}
+            />
+        </div>
 
         <div className="chooseList">
             <ChooseList
