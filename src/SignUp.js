@@ -27,7 +27,7 @@ function SignUp(props) {
 
     return (
         <div>
-            {error && showAlert && <Alert onClose={toggleAlert} onOK={toggleAlert}><p>Error signing up: {error.message}</p></Alert>}
+            {error && showAlert && <Alert onClose={toggleAlert} onOK={toggleAlert}><p>Error signing up! {error.message}</p></Alert>}
             <h1>Sign Up</h1>
             <label htmlFor="email">Email: </label>
             <input
