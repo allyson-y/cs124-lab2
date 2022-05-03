@@ -2,8 +2,9 @@ import React from 'react';
 
 function AddSharedUser(props) {
     return <>
-        <form onSubmit={props.shareList}>
-            <label>
+        {/*<form onSubmit={e => props.handleListChanged(props.id, "name", props.emails.concat([e.target.value]))}>*/}
+        <form onSubmit={e => console.log(e.target.value)}>
+        <label>
                 <input
                     type="text"
                     value={props.value}
