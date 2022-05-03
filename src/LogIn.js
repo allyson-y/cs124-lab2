@@ -11,16 +11,17 @@ function LogIn(props) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
+    const [emailAlert, setEmailAlert] = useState(false);
+
     function alertToggle() {
         setEmailAlert(!emailAlert);
     }
 
-    const [emailAlert, setEmailAlert] = useState(false);
-
     function signInWithEmail(email, password){
         if (emailError){
-            setEmailAlert(true);
+            // setEmailAlert(true);
         } else{
+            // setEmailAlert(false);
             signInWithEmailAndPassword(email, password);
         }
     }
@@ -36,7 +37,7 @@ function LogIn(props) {
     return (
         <div>
             {emailAlert && <Alert onClose={alertToggle} onOK={alertToggle}>
-                <p>{"We cannot find an account with that email address"}</p></Alert>}
+                <p>Error logging in! {emailError.message}</p></Alert>}
 
             <h1>Log In</h1>
             <div>
@@ -67,7 +68,6 @@ function LogIn(props) {
             <div>
                 <button onClick={() => signInWithGoogle()}>Sign in with Google</button>
             </div>
-
             Don't have an account?
             <button onClick={props.toggleSignUp}>
                 Sign up
