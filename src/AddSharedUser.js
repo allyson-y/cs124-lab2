@@ -14,7 +14,7 @@ function AddSharedUser(props) {
         <button
             value={props.value}
             onClick={(e) =>
-                    props.handleListChanged(props.id, "sharedWith", props.emails.concat([e.target.value]))}>
+                    props.handleListChanged(props.id, "sharedWith", props.emails.contains(e.target.value) ? props.emails : props.emails.concat([e.target.value]))}>
             Share
         </button>
         {/*<input*/}

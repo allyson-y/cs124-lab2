@@ -49,7 +49,7 @@ function SignedInApp(props) {
     const [showEditListName, setShowEditListName] = useState(false);
     const [showAddDoneName, setShowAddDoneName] = useState(false);
     const [inputName, setInputName] = useState("");
-    const [sharedWith, setSharedWith] = useState([props.user.email]);
+    const [sharedWith] = useState([props.user.email]);
     const [sharedUser, setSharedUser] = useState("");
 
     // const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
