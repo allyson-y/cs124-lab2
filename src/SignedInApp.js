@@ -49,7 +49,7 @@ function SignedInApp(props) {
     const [showEditListName, setShowEditListName] = useState(false);
     const [showAddDoneName, setShowAddDoneName] = useState(false);
     const [inputName, setInputName] = useState("");
-    const [sharedWith, setSharedWith] = useState([]);
+    const [sharedWith, setSharedWith] = useState([props.user.email]);
     const [sharedUser, setSharedUser] = useState("");
 
     // const [todoLists, listLoading, listError] = useCollectionData(query(collection(db, collectionName),
@@ -123,15 +123,16 @@ function SignedInApp(props) {
         console.log(sharedWith);
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
         setShowAddDoneName(!showAddDoneName);
-        setSharedWith(sharedWith.concat([props.user.email]));
     }
 
     function handleListChanged(itemId, field, newValue) {
         updateDoc(doc(db, collectionName, itemId),
             {[field]: newValue});
         console.log("list changed");
-        console.log(itemId);
+        console.log(field);
     }
+
+    // setSharedWith(sharedWith.concat([props.user.email]));
 
     function alertDelete() {
         handleCompletedDeleted()
@@ -172,7 +173,6 @@ function SignedInApp(props) {
 
     function handleSharedUserChanged(e) {
         setSharedUser(e.target.value);
-        console.log(e);
     }
 
     if (error) {
