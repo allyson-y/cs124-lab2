@@ -21,10 +21,6 @@ function SignUp(props) {
         return <h1>Signing up...</h1>;
     }
 
-    // if (error) {
-    //     return <p>Error: {error.message}</p>
-    // }
-
     return (
         <div>
             {error && showAlert && <Alert onClose={toggleAlert} onOK={toggleAlert}><p>Error signing up! {error.message}</p></Alert>}

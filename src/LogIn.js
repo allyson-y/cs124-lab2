@@ -13,15 +13,21 @@ function LogIn(props) {
 
     const [emailAlert, setEmailAlert] = useState(false);
 
-    function alertToggle() {
+    const [googleAlert, setGoogleAlert] = useState(false);
+
+    function emailAlertToggle() {
         setEmailAlert(!emailAlert);
+    }
+
+    function googleAlertToggle(){
+        setGoogleAlert(!googleAlert);
     }
 
     function signInWithEmail(email, password){
         if (emailError){
-            // setEmailAlert(true);
+            setEmailAlert(!emailAlert);
         } else{
-            // setEmailAlert(false);
+            setEmailAlert(!emailAlert);
             signInWithEmailAndPassword(email, password);
         }
     }
@@ -36,8 +42,11 @@ function LogIn(props) {
 
     return (
         <div>
-            {emailAlert && <Alert onClose={alertToggle} onOK={alertToggle}>
-                <p>Error logging in! {emailError.message}</p></Alert>}
+            {emailAlert && <Alert onClose={emailAlertToggle} onOK={emailAlertToggle}>
+                <p>Error logging in! {emailError ? emailError.message : "error"}</p></Alert>}
+
+            {googleAlert && <Alert onClose={googleAlertToggle} onOK={googleAlertToggle}>
+                <p>Error logging in! {googleError ? googleError.message : "error"}</p></Alert>}
 
             <h1>Log In</h1>
             <div>
@@ -59,7 +68,6 @@ function LogIn(props) {
                     onChange={(e) => setPassword(e.target.value)}
                 />
                 <br/>
-                {/*<button onClick={() => signInWithEmailAndPassword(email, password)}>*/}
                 <button onClick={() => signInWithEmail(email, password)}>
                     Log In
                 </button>
