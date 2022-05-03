@@ -122,11 +122,14 @@ function SignedInApp(props) {
         console.log(sharedWith);
         setNewList(collectionName + "/" + currListID.toString() + "/tasks");
         setShowAddDoneName(!showAddDoneName);
+        setSharedWith(sharedWith.concat([props.user.email]));
     }
 
     function handleListChanged(itemId, field, newValue) {
         updateDoc(doc(db, collectionName, itemId),
             {[field]: newValue});
+        console.log("list changed");
+        console.log(itemId);
     }
 
     function alertDelete() {
@@ -171,11 +174,6 @@ function SignedInApp(props) {
         console.log(e);
     }
 
-    function shareList() {
-        console.log("shared list with "+ sharedUser);
-    }
-
-
     if (error) {
         return "error" + error;
     }
@@ -188,16 +186,18 @@ function SignedInApp(props) {
         <br/>
 
         <p>Signed in as {props.user.email}</p>
-        {!props.user.emailVerified && (
-            <button onClick={() => sendEmailVerification(props.user)}>
-                Validate email
-            </button>
-        )}
+        {/*{!props.user.emailVerified && (*/}
+        {/*    <button onClick={() => sendEmailVerification(props.user)}>*/}
+        {/*        Validate email*/}
+        {/*    </button>*/}
+        {/*)}*/}
         <div>
             <AddSharedUser
-                shareList={shareList}
                 handleChange={handleSharedUserChanged}
                 value={sharedUser}
+                handleListChanged={handleListChanged}
+                id={currListID}
+                emails={sharedWith}
             />
         </div>
 
