@@ -13,7 +13,7 @@ import {
     where
 } from "firebase/firestore";
 import {generateUniqueID} from "web-vitals/dist/modules/lib/generateUniqueID";
-import {sendEmailVerification, signOut} from "firebase/auth";
+import {signOut} from "firebase/auth";
 import ChooseList from "./ChooseList";
 import SortButton from "./SortButton";
 import TaskList from "./taskList";
@@ -67,9 +67,10 @@ function SignedInApp(props) {
     // owner's email in sharedWith
 
     // console.log(props.user.uid);
-    console.log(props.user.email + "user");
-    console.log(todos);
-    console.log(todoLists);
+    // console.log(props.user.email + "user");
+    // console.log(todos);
+    // console.log(todoLists);
+    // console.log(props.user.sharedWith);
 
     const [listName, setListName] = useState("List 1");
 
