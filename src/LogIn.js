@@ -24,6 +24,11 @@ function LogIn(props) {
     }
 
     function signInWithEmail(email, password){
+        // if (emailError.code==='account-exists-with-different-credential'){
+        //     console.log("Wrong password")
+        // }
+        // console.log(emailError.message);
+        // console.log(error);
         if (emailError){
             setEmailAlert(!emailAlert);
         } else{
