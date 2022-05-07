@@ -1,0 +1,84 @@
+.select {
+    font-family: "Lucida Console", "Courier New", monospace;
+    display: inline-block;
+    padding-right: 10px;
+}
+
+body{
+    display: inline-block;
+}
+
+.buttons{
+    display: inline-block;
+}
+
+.editButton {
+    width: 90px;
+    background-color: #3cb371; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    height: 22px;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.addButton {
+    width: 90px;
+    background-color: #3cb371; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    height: 22px;
+    margin-right: 10px;
+}
+
+.deleteList {
+    background-color: #800000; /* Red */
+    border: none;
+    color: white;
+    padding: 1px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    height: 22px;
+    width: 110px;
+    /*margin-left: 10px;*/
+}
+
+.list-text-input {
+    height: 15px;
+    width: 80px;
+    margin-top: 10px;
+    font-size: 14px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    display: inline-block;
+}
+
+.listDoneButton {
+    width: 50px;
+    background-color: #3cb371; /* Green */
+    border: none;
+    color: white;
+    padding: 1px 1px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 15px;
+    font-family: "Lucida Console", "Courier New", monospace;
+    height: 22px;
+    margin-right: 10px;
+    margin-left: 10px;
+}

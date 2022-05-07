@@ -1,0 +1,90 @@
+body{
+  /*display:grid;*/
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.editTasks {
+  display:flex;
+  flex-direction:row;
+  padding-top: 20px;
+}
+
+.sortButton {
+  display: grid;
+  padding-top: 20px;
+  padding-bottom: 12px;
+  padding-left: 40px;
+  /*transform: scale(1.1);*/
+}
+
+.chooseList {
+  /*display: grid;*/
+  transform: scale(1.1);
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  display: inline-block;
+}
+
+.signOut {
+  background-color: gray;
+  border: none;
+  color: black;
+  padding: 4px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  margin-top: 30px;
+  height: 30px;
+}
+
+#thisButton {
+  color: darkmagenta;
+  font-weight: bold;
+}
+
+h1 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 40px;
+}
+
+h4 {
+  font-family: "Lucida Console", "Courier New", monospace;
+  font-size: 20px;
+}
+
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

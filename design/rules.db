@@ -1,0 +1,10 @@
+A signed in user should be able to:
+- create their own lists
+- add, edit, view, delete, select priority levels of tasks
+
+Once user A shares a list with user B, user B can:
+- view the list
+- edit the name of the list
+- add, edit, view, delete, select priority levels of tasks
+BUT, user B cannot:
+- delete the list

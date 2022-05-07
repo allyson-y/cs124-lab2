@@ -1,0 +1,64 @@
+#true{
+    opacity: 1;
+}
+
+#false{
+    opacity: 0.5;
+}
+
+.priorityButtons {
+    padding-left: 5px;
+}
+
+button {
+    height: 25px;
+}
+
+select {
+    background: white;
+    color: purple;
+}
+
+/*select option {*/
+/*    background: rgba(0, 0, 0, 0.3);*/
+/*    color: #fff;*/
+/*    text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);*/
+/*}*/
+
+#select option[value="a"] {
+    color: white;
+    background-color: #1F51FF;
+}
+
+
+/*low*/
+.a{
+    color: white;
+    background-color: #1F51FF;
+    border-style: none;
+}
+
+/*mid*/
+.b{
+    color: white;
+    background-color: darkgreen;
+    border-style: none;
+}
+/*high*/
+.c{
+    color: white;
+    background-color: #D60000;
+    border-style: none;
+}
+
+@media only screen and (max-device-width: 420px) {
+    .priorityButtons2{
+        display:none;
+    }
+}
+
+@media only screen and (min-device-width: 421px) {
+    .priorityButtons1 {
+        display: none;
+    }
+}

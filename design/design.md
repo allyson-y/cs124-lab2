@@ -1,35 +1,43 @@
 # Design Document
-[//]: # (<<<<<<< HEAD)
-[//]: # (### Design decisions, including rationale &#40;include images&#41;)
 
-[//]: # ()
-[//]: # (### Alternative designs we considered, including images)
-
-[//]: # (=======)
 ### Design decisions
-Last time, we only considered having only one list (instead of having two lists of uncompleted and completed), but we
-felt that it is only fair to let the user see the completed tasks, so now we have a new section called Completed.
+Positioning of each element was a challenge in this final lab, because we now have so many 
+things we need to display, such as the list of lists, edit, add and delete of such lists, 
+as well as completed and uncompleted lists. We played around with them and came to the final
+decision of where they are now!
 
+<img src="main.png" width="300">
 
-![Clump format](clump.png)
 
 ### Alternative designs
-We considered using a pop-up message that a user can respond to when they want to add a to-do, but we felt like that 
-would make the app too complicated. 
+We considered positioning Log In button and Sign up button in completely separate screens,
+which would be we would firstly have one screen just with those buttons alone, and secondly
+when the user clicks on either button, you get directed to a Login page and Signup page.
+However, we wanted to minimize the number of steps that needs to be taken for a user, so we 
+decided to have a Login page as default with a Signup button at the bottom, and when a user 
+clicks the Signup button, they get directed to a Signup page with a Login option at the bottom.
 
-![Add_delete format](add_delete.png)
+<img src="login.png" width="300">
 
 
-[//]: # (>>>>>>> 2313ce5d6f6d0d1b063e67c572bb022301b3bb2d)
 ### User testing
-We tested with the same potential user as last time, and she liked that we changed from "Add a todo" to "Add." She also 
-enjoyed that the "Done" button no longer exists, which she mentioned last time as redundant. 
-
+We tested with the same person we tested the lab 1 with. She said that the app was simple 
+and easy to follow and understand, and that instructions given were always clear.
 
 ### Challenges we faced
-We decided to introduce a whole new section "Completed," which shows all the items that are marked as completed. This
-posed some challenges because we had to implement a couple of more constructors to keep track of all the different todos.
+The hardest part was figuring out the security rules and implementing functions and displays
+of the app accordingly, because there are so many patterns that are possible.
+
 
 ### Parts of the design we're most proud of
-As was the case last time, we feel proud of the simplicity of the color and structure, which leads to the ease of
-understanding and using. Having "Completed" section also added a different layer to this app as a todo checker!
+
+We are quite proud of our error messages that are clear and concise and do not give the user
+too much information which can often be confusing; they deliver the exact meaning we want the 
+user to receive.
+
+<img src="user_not_found.png" width="300">
+
+<img src="wrong_password.png" width="300">
+
+
+
