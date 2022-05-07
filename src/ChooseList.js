@@ -7,11 +7,10 @@ function ChooseList(props) {
             className="select"
             value={props.id}
             onChange={props.handleSelect}
-            aria-label="Hit space to enter lists, use cursor to select list, hit space to confirm"
+            aria-label="Enter lists, select a list, and confirm"
         >
-
-            {props.listOfLists.map(col =>
-                <option value={col.id}>{col.name}</option>)}
+            {props.listOfLists ? props.listOfLists.map(col =>
+                <option value={col.id}>{col.name}</option>) : null}
         </select>
 
         <span id={"buttons"}>
@@ -20,7 +19,7 @@ function ChooseList(props) {
             type={"button"}
             id="editListName"
             onClick={props.toggleEditListName}
-            aria-label="Hit space to edit name of list">
+            aria-label="Edit the name of list">
             Edit name
         </button>
 
@@ -29,7 +28,7 @@ function ChooseList(props) {
             type={"button"}
             id="newList"
             onClick={props.handleListAdded}
-            aria-label="Hit space to create a new list">
+            aria-label="Create a new list">
             Add list
         </button>
 
@@ -39,7 +38,7 @@ function ChooseList(props) {
             id="deleteList"
             onClick={(e) =>
                 props.handleListDelete(props.id)}
-            aria-label={"Hit space to delete this list"}>
+            aria-label={"Delete this list"}>
             Delete list
         </button>
 
@@ -62,7 +61,7 @@ function ChooseList(props) {
             type={"button"}
             id="done"
             onClick={props.toggleEditListName}
-            aria-label="Hit space to finish editing list name">
+            aria-label="Finish editing list name">
             Done
         </button>}
 

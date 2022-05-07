@@ -1,0 +1,5 @@
+Our rules:
+The shared user can edit all tasks, but cannot delete the list
+If user A shares a list with user B, a shared list just show up
+Shared lists should be distinguishable in the UI from unshared lists
+Shared user can share with other users

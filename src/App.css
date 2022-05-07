@@ -35,6 +35,20 @@ body{
   display: inline-block;
 }
 
+.signOut {
+  background-color: gray;
+  border: none;
+  color: black;
+  padding: 4px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  font-family: "Lucida Console", "Courier New", monospace;
+  margin-top: 30px;
+  height: 30px;
+}
+
 #thisButton {
   color: darkmagenta;
   font-weight: bold;

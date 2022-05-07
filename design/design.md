@@ -1,54 +1,43 @@
 # Design Document
 
 ### Design decisions
-In our previous iteration, we went from having only one list of all of our tasks to having an uncompleted 
-and completed list section. 
+Positioning of each element was a challenge in this final lab, because we now have so many 
+things we need to display, such as the list of lists, edit, add and delete of such lists, 
+as well as completed and uncompleted lists. We played around with them and came to the final
+decision of where they are now!
 
-From <img src="clump.png" height="200"> to <img src="oneList.png" height="200">
+<img src="main.png" width="300">
 
-Additionally, not only can the user change the text of their task and complete/uncomplete it, but also
-specify its priority level (high, medium, low).
-
-We also added a sorting feature, so that the user can sort their to-do list according to name (alphabetical),
- priority (low, medium high), and date created.
-
-<img src="sortDropdown.png" width="300">
-
-In our newest iteration, the user can access multiple to-do lists.
-
-<img src="lists.png" width="300">
-
-With the multiple to-do lists functionality, we added options for the user to
-select, edit, add, and delete lists. Below is the dropdown for selecting different to-do lists.
-
-<img src="listDropdown.png" width="300">
 
 ### Alternative designs
-We considered using a pop-up message that a user can respond to when they want to add a to-do, but we felt like that 
-would make the app too complicated. 
+We considered positioning Log In button and Sign up button in completely separate screens,
+which would be we would firstly have one screen just with those buttons alone, and secondly
+when the user clicks on either button, you get directed to a Login page and Signup page.
+However, we wanted to minimize the number of steps that needs to be taken for a user, so we 
+decided to have a Login page as default with a Signup button at the bottom, and when a user 
+clicks the Signup button, they get directed to a Signup page with a Login option at the bottom.
 
-For the multiple to-do lists function, we considered having the user edit the name of the list in the same location of the dropdown,
- but we decided having a new line for the user to edit the name was simpler.
+<img src="login.png" width="300">
 
-<img src="editList.png" width="300">
 
 ### User testing
-We initially had essentially all the elements/components indent as we resized, but after having someone run it, we
-decided that it was better to keep them still in the same position even in smaller screens. 
+We tested with the same person we tested the lab 1 with. She said that the app was simple 
+and easy to follow and understand, and that instructions given were always clear.
 
 ### Challenges we faced
-There were mainly three challenges. First, similar to the previous iteration, keeping track of the uncompleted and 
-completed tasks was difficult. Second, implementing multiple to-do lists posed a challenge, as we had to reorganize our 
-Firebase collections. Third, creating a dropdown menu proved more difficult than having options be laid out because it
-gets challenging to map and style them individually. 
+The hardest part was figuring out the security rules and implementing functions and displays
+of the app accordingly, because there are so many patterns that are possible.
+
 
 ### Parts of the design we're most proud of
-To make the app more accessible to different screen sizes, we implemented a dropdown for the tasks' priority levels 
-when the user's window was small.
 
-So, from  <img src="priorityButtons.png" height="100"> to <img src="priorityDropdown.png" height="100"> when the user makes their screen smaller.
+We are quite proud of our error messages that are clear and concise and do not give the user
+too much information which can often be confusing; they deliver the exact meaning we want the 
+user to receive.
 
-### Videos of accessibility functions
-Using our application entirely from the keyboard - https://youtu.be/CB8B5v1TiCg
+<img src="user_not_found.png" width="300">
 
-Using our application using a screen reader - https://youtu.be/os7RTLp9hFo
+<img src="wrong_password.png" width="300">
+
+
+
